@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "export-screens": "node scripts/export-screens.js"
-  },
+  "dev": "next dev",
+  "build": "next build",
+  "export": "next export",
+  "start": "next start",
+  "lint": "next lint",
+  "export-screens": "node scripts/export-screens.js"
+},
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
