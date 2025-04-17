@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 4H30V10H0V4Z" fill="white"/>
+  <path d="M0 13H30V19H0V13Z" fill="white"/>
+  <path d="M0 22H30V28H0V22Z" fill="white"/>
+  <text x="40" y="22" fill="white" font-family="system-ui" font-size="20" font-weight="bold">Fintech</text>
+</svg>

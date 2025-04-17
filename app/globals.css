@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 222 84% 7%;
+    --foreground: 210 40% 98%;
+    --card: 240 45% 18%;
+    --card-foreground: 210 40% 98%;
+    --popover: 240 45% 18%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 84 100% 59%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 84% 7%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 222 84% 7%;
+    --ring: 84 100% 59%;
+    --radius: 0.5rem;
+    --chart-1: 84 100% 59%;
+    --chart-2: 215.4 16.3% 46.9%;
+    --chart-3: 210 40% 96.1%;
+    --chart-4: 214.3 31.8% 91.4%;
+    --chart-5: 222.2 84% 4.9%;
+  }
+ 
+  .dark {
+    --background: 222 84% 7%;
+    --foreground: 210 40% 98%;
+    --card: 240 45% 18%;
+    --card-foreground: 210 40% 98%;
+    --popover: 240 45% 18%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 84 100% 59%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 84% 7%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 222 84% 7%;
+    --ring: 84 100% 59%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    @apply bg-[#000A26];
+  }
+  
+  .dark-card {
+    @apply bg-[#191C44] border-border;
+  }
+
+  .status-badge {
+    @apply px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-active {
+    @apply bg-primary/20 text-primary;
+  }
+
+  .status-review {
+    @apply bg-[#FFD700]/20 text-[#FFD700];
+  }
+
+  .status-completed {
+    @apply bg-[#00FF00]/20 text-[#00FF00];
+  }
+
+  .status-draft {
+    @apply bg-[#808080]/20 text-[#808080];
+  }
+
+  .status-with-editor {
+    @apply bg-[#800080]/20 text-[#800080];
+  }
+
+  .status-submitted {
+    @apply bg-[#CD853F]/20 text-[#CD853F];
+  }
+
+  .status-unclaimed {
+    @apply bg-primary/20 text-primary;
+  }
+
+  .bg-muted {
+    @apply bg-[#030B26] !important;
+  }
+}
