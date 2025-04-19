@@ -18,6 +18,10 @@ export default function LoginPage() {
   const handleBusinessAdminLogin = () => {
     router.push('/business-admin')
   }
+  
+  const handleEditorOnboarding = () => {
+    router.push('/onboarding/editor')
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center gradient-bg p-4">
@@ -46,6 +50,16 @@ export default function LoginPage() {
           </div>
           <Button className="w-full" size="lg">
             Sign in
+          </Button>
+        </div>
+
+        <div className="text-center mt-4">
+          <Button 
+            variant="link" 
+            onClick={handleEditorOnboarding}
+            className="text-primary hover:text-primary/80"
+          >
+            Apply to become an editor
           </Button>
         </div>
 
