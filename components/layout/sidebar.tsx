@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
@@ -12,7 +13,8 @@ import {
   Receipt,
   Users,
   CreditCard,
-  DollarSign
+  DollarSign,
+  PoundSterling
 } from "lucide-react"
 
 // Business user navigation items
@@ -88,7 +90,7 @@ const businessAdminItems = [
   {
     title: "Billing",
     href: "/business-admin/billing",
-    icon: DollarSign
+    icon: PoundSterling
   },
   {
     title: "Guides",
