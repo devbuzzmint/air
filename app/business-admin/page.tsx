@@ -220,7 +220,7 @@ export default function BusinessAdminDashboard() {
                       </div>
                       <span>{user.name}</span>
                     </div>
-                    <span className="font-medium">£{user.creditsUsed}</span>
+                    <span className="font-medium">{user.creditsUsed} credits</span>
                   </div>
                 ))}
                 <div className="mt-4 text-right">
@@ -360,7 +360,7 @@ export default function BusinessAdminDashboard() {
                           {job.status}
                         </Badge>
                       </div>
-                      <div>£{job.credits}</div>
+                      <div>{job.credits} credits</div>
                     </div>
                   ))}
                 </div>
@@ -389,7 +389,7 @@ export default function BusinessAdminDashboard() {
                       <div>{user.email}</div>
                       <div>{user.role}</div>
                       <div>{user.activeJobs}</div>
-                      <div>£{user.creditsUsed}</div>
+                      <div>{user.creditsUsed} credits</div>
                     </div>
                   ))}
                 </div>

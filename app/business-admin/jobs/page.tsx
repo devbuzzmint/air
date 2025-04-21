@@ -211,7 +211,7 @@ export default function BusinessAdminJobsPage() {
                     className="h-8 w-auto object-contain mb-2"
                   />
                   <span className="text-xl font-semibold text-primary">
-                    £{job.credits}
+                    {job.credits} credits
                   </span>
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function BusinessAdminJobsPage() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Payment</h4>
-                      <p className="text-primary font-semibold">£{selectedJob.credits}</p>
+                      <p className="text-primary font-semibold">{selectedJob.credits} credits</p>
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Type</h4>

@@ -15,39 +15,39 @@ import {
 
 const pricingPlans = [
   {
-    name: "Basic",
-    credits: 5000,
-    price: 499,
+    name: "Bronze",
+    credits: 2563,
+    price: 2500,
     features: [
-      "Up to 5 team members",
-      "Basic content types", 
-      "Standard support",
-      "Monthly rollover up to 1000 credits"
+      "Up to 5 users",
+      "Up to 5 bespoke prompt templates", 
+      "Dedicated account manager",
+      "User and corporate dashboards",
+      "Avg 15 pieces of editorial content"
     ]
   },
   {
-    name: "Professional", 
-    credits: 12000,
-    price: 999,
+    name: "Silver", 
+    credits: 5250,
+    price: 5000,
     features: [
-      "Up to 15 team members",
-      "All content types",
-      "Priority support", 
-      "Monthly rollover up to 3000 credits",
-      "Advanced analytics"
+      "Up to 10 users",
+      "Up to 10 bespoke prompt templates",
+      "Dedicated account manager", 
+      "User and corporate dashboards",
+      "Avg 30 pieces of editorial content"
     ]
   },
   {
-    name: "Enterprise",
-    credits: "Unlimited",
-    price: 2499,
+    name: "Gold",
+    credits: 11000,
+    price: 10000,
     features: [
-      "Unlimited team members",
-      "All content types",
-      "24/7 dedicated support",
-      "Unlimited credit rollover",
-      "Custom integrations",
-      "Dedicated account manager"
+      "Up to 20 users",
+      "Up to 20 bespoke prompt templates",
+      "Dedicated account manager",
+      "User and corporate dashboards",
+      "Avg 63 pieces of editorial content"
     ]
   }
 ]
@@ -83,8 +83,8 @@ const monthlyUsage = [
 ]
 
 export default function BusinessAdminCreditsPage() {
-  const totalCredits = 12000
-  const usedCredits = 8500
+  const totalCredits = 5250
+  const usedCredits = 3800
   const remainingCredits = totalCredits - usedCredits
   const creditPercentage = (usedCredits / totalCredits) * 100
 
@@ -110,8 +110,8 @@ export default function BusinessAdminCreditsPage() {
               <h2 className="text-xl font-semibold mb-4">Current Plan</h2>
               <div className="flex items-start justify-between mb-6">
                 <div>
-                  <Badge className="bg-primary/20 text-primary mb-2">Professional</Badge>
-                  <p className="text-3xl font-bold">£999<span className="text-sm text-muted-foreground">/month</span></p>
+                  <Badge className="bg-primary/20 text-primary mb-2">Silver</Badge>
+                  <p className="text-3xl font-bold">£{5000}<span className="text-sm text-muted-foreground">/month</span></p>
                 </div>
                 <Button>Upgrade Plan</Button>
               </div>
