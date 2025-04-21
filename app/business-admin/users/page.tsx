@@ -50,6 +50,36 @@ const users = [
     creditsUsed: 150,
     totalCredits: 400,
     activeJobs: 1
+  },
+  {
+    id: "4",
+    name: "James Wilson",
+    email: "james@company.com",
+    role: "Technical Writer",
+    status: "Active",
+    creditsUsed: 400,
+    totalCredits: 700,
+    activeJobs: 2
+  },
+  {
+    id: "5",
+    name: "Lisa Anderson",
+    email: "lisa@company.com",
+    role: "Content Strategist",
+    status: "Active",
+    creditsUsed: 200,
+    totalCredits: 450,
+    activeJobs: 1
+  },
+  {
+    id: "6",
+    name: "David Thompson",
+    email: "david@company.com",
+    role: "Marketing Specialist",
+    status: "Active",
+    creditsUsed: 200,
+    totalCredits: 450,
+    activeJobs: 1
   }
 ]
 

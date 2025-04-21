@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Search, Clock } from "lucide-react"
+import { Search, Clock, Send } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -40,14 +40,14 @@ const contentTypes = [
 const initialJobs = [
   {
     id: "1",
-    title: "Technical Documentation Update",
-    client: "Fintech Solutions",
+    title: "API Documentation",
+    client: "Fintech",
     clientLogo: "/fintech-logo.png",
-    description: "Update existing technical documentation to reflect new features and improvements",
-    deadline: "2024-03-15",
+    description: "Write technical documentation for payment processing API",
+    deadline: "2024-03-01",
     type: "Technical Documentation",
-    credits: 600,
-    status: "Active",
+    credits: 1500,
+    status: "With Editor",
     prompt: `Create comprehensive technical documentation for our updated API endpoints. Include:
 - Authentication methods
 - Endpoint specifications
@@ -58,34 +58,34 @@ const initialJobs = [
   },
   {
     id: "2",
-    title: "Product Launch Announcement",
-    client: "Fintech Solutions",
+    title: "Investment Platform Launch",
+    client: "Fintech",
     clientLogo: "/fintech-logo.png",
-    description: "Create a press release for our new payment gateway solution",
-    deadline: "2024-03-12",
-    type: "Press Release",
-    credits: 400,
-    status: "In Progress",
+    description: "Develop content strategy for new investment platform launch",
+    deadline: "2024-03-10",
+    type: "Social Media Post",
+    credits: 800,
+    status: "Submitted to Network",
     prompt: "Write a professional press release announcing our new payment gateway solution...",
     generatedContent: "Draft content for press release..."
   },
   {
     id: "3",
-    title: "Q1 Financial Report",
-    client: "Fintech Solutions",
+    title: "Digital Banking Trends Report",
+    client: "Fintech",
     clientLogo: "/fintech-logo.png",
-    description: "Create a detailed financial report for Q1 2024",
-    deadline: "2024-04-05",
+    description: "Create a comprehensive report on emerging digital banking trends and their impact on the financial sector",
+    deadline: "2024-03-15",
     type: "White Paper",
-    credits: 750,
-    status: "Pending",
+    credits: 1200,
+    status: "Draft",
     prompt: "Create a comprehensive financial report covering Q1 2024 results...",
     generatedContent: ""
   },
   {
     id: "4",
     title: "Social Media Campaign",
-    client: "Fintech Solutions",
+    client: "Fintech",
     clientLogo: "/fintech-logo.png",
     description: "Develop a series of social media posts for our upcoming webinar",
     deadline: "2024-03-20",
@@ -98,7 +98,7 @@ const initialJobs = [
   {
     id: "5",
     title: "Email Newsletter",
-    client: "Fintech Solutions",
+    client: "Fintech",
     clientLogo: "/fintech-logo.png",
     description: "Monthly newsletter highlighting new features and industry news",
     deadline: "2024-03-25",
@@ -111,7 +111,7 @@ const initialJobs = [
   {
     id: "6",
     title: "API Integration Guide",
-    client: "Fintech Solutions",
+    client: "Fintech",
     clientLogo: "/fintech-logo.png",
     description: "Technical guide for developers integrating with our payment API",
     deadline: "2024-04-10",
@@ -128,6 +128,7 @@ export default function BusinessAdminJobsPage() {
   const [jobs, setJobs] = useState(initialJobs)
   const [searchQuery, setSearchQuery] = useState("")
   const [typeFilter, setTypeFilter] = useState("all")
+  const [statusFilter, setStatusFilter] = useState("all")
   const [selectedJob, setSelectedJob] = useState<typeof initialJobs[0] | null>(null)
   const [showDetailsDialog, setShowDetailsDialog] = useState(false)
 
@@ -135,8 +136,9 @@ export default function BusinessAdminJobsPage() {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          job.description.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesType = typeFilter === "all" || job.type === typeFilter
+    const matchesStatus = statusFilter === "all" || job.status === statusFilter
     
-    return matchesSearch && matchesType
+    return matchesSearch && matchesType && matchesStatus
   })
 
   const handleViewDetails = (job: typeof initialJobs[0]) => {
@@ -145,21 +147,18 @@ export default function BusinessAdminJobsPage() {
   }
 
   return (
-    <div className="p-8 gradient-bg min-h-screen">
+    <div className="p-8 bg-[#070c1c] min-h-screen">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-4xl font-bold">Fintech Solutions Jobs</h1>
-            <p className="text-muted-foreground mt-1">
-              Manage all content jobs for Fintech Solutions
-            </p>
+            <h1 className="text-4xl font-bold text-white">My Jobs</h1>
           </div>
-          <Button onClick={() => router.push('/business-admin/create')}>
+          <Button className="bg-[#c1ff00] hover:bg-[#b2ee00] text-black font-semibold">
             Create Job
           </Button>
         </div>
 
-        <div className="bg-card rounded-xl shadow-sm border border-border mb-6">
+        <div className="bg-[#1a1e37] rounded-xl shadow-sm border border-[#282f52] mb-6">
           <div className="p-6">
             <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1 relative">
@@ -168,15 +167,29 @@ export default function BusinessAdminJobsPage() {
                   placeholder="Search jobs..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 bg-muted"
+                  className="pl-10 bg-[#131729] border-[#282f52]"
                 />
               </div>
               <div className="flex gap-4">
-                <Select value={typeFilter} onValueChange={setTypeFilter}>
-                  <SelectTrigger className="w-[180px] bg-muted">
-                    <SelectValue placeholder="Filter by type" />
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-[180px] bg-[#131729] border-[#282f52]">
+                    <SelectValue placeholder="All Statuses" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-[#1a1e37] border-[#282f52]">
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="Active">Active</SelectItem>
+                    <SelectItem value="Draft">Draft</SelectItem>
+                    <SelectItem value="Submitted to Network">Submitted to Network</SelectItem>
+                    <SelectItem value="With Editor">With Editor</SelectItem>
+                    <SelectItem value="Pending">Pending</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Select value={typeFilter} onValueChange={setTypeFilter}>
+                  <SelectTrigger className="w-[180px] bg-[#131729] border-[#282f52]">
+                    <SelectValue placeholder="All Types" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#1a1e37] border-[#282f52]">
                     <SelectItem value="all">All Types</SelectItem>
                     {contentTypes.map((type) => (
                       <SelectItem key={type} value={type}>{type}</SelectItem>
@@ -192,25 +205,36 @@ export default function BusinessAdminJobsPage() {
           {filteredJobs.map((job) => (
             <div
               key={job.id}
-              className="bg-card p-6 rounded-lg border border-border hover:border-primary/50 transition-colors"
+              className="bg-[#1a1e37] p-6 rounded-lg border border-[#282f52] hover:border-[#c1ff00]/50 transition-colors"
             >
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-lg">{job.title}</h3>
-                    <Badge variant="outline" className="bg-primary/10 text-primary">
+                    <h3 className="font-semibold text-lg text-white">{job.title}</h3>
+                    <Badge variant={job.status === "Submitted to Network" ? "secondary" : 
+                           job.status === "Draft" ? "outline" : 
+                           job.status === "With Editor" ? "secondary" : "outline"} 
+                           className={`${job.status === "Submitted to Network" ? "bg-orange-500/20 text-orange-400" : 
+                                        job.status === "Draft" ? "bg-blue-500/20 text-blue-400" :
+                                        job.status === "With Editor" ? "bg-purple-500/20 text-purple-400" : 
+                                        "bg-primary/10 text-primary"}`}>
                       {job.status}
                     </Badge>
                   </div>
                   <p className="text-muted-foreground mt-2">{job.description}</p>
                 </div>
                 <div className="text-right">
-                  <img 
-                    src={job.clientLogo} 
-                    alt={job.client}
-                    className="h-8 w-auto object-contain mb-2"
-                  />
-                  <span className="text-xl font-semibold text-primary">
+                  <div className="mb-2 text-right">
+                    <span className="inline-flex items-center justify-center bg-[#1e2342] px-3 py-1 rounded-md">
+                      <img 
+                        src="/fintech-logo.png" 
+                        alt={job.client}
+                        className="h-5 w-auto object-contain mr-2"
+                      />
+                      <span className="text-white font-medium">Fintech</span>
+                    </span>
+                  </div>
+                  <span className="text-xl font-semibold text-[#c1ff00]">
                     {job.credits} credits
                   </span>
                 </div>
@@ -221,64 +245,70 @@ export default function BusinessAdminJobsPage() {
                   <Clock className="h-4 w-4" />
                   <span>Due: {job.deadline}</span>
                 </div>
-                <Badge variant="secondary">{job.type}</Badge>
+                <Badge variant="secondary" className="bg-[#282f52] text-gray-300">{job.type}</Badge>
               </div>
 
               <div className="mt-4 flex gap-2">
-                <Button variant="secondary" onClick={() => handleViewDetails(job)}>
+                <Button variant="outline" className="border-[#282f52] hover:bg-[#282f52] text-white" 
+                  onClick={() => handleViewDetails(job)}>
                   View Details
                 </Button>
+                {job.status === "Draft" && (
+                  <Button className="bg-[#c1ff00] hover:bg-[#b2ee00] text-black font-semibold">
+                    <Send className="h-4 w-4 mr-2" /> Submit to Network
+                  </Button>
+                )}
               </div>
             </div>
           ))}
         </div>
 
         <Dialog open={showDetailsDialog} onOpenChange={setShowDetailsDialog}>
-          <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+          <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-[#1a1e37] border-[#282f52] text-white">
             {selectedJob && (
               <>
                 <DialogHeader>
-                  <DialogTitle>{selectedJob.title}</DialogTitle>
+                  <DialogTitle className="text-white">{selectedJob.title}</DialogTitle>
                 </DialogHeader>
                 
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-lg font-medium mb-2">Description</h3>
+                    <h3 className="text-lg font-medium mb-2 text-white">Description</h3>
                     <p className="text-muted-foreground">{selectedJob.description}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium mb-1">Client</h4>
-                      <p>{selectedJob.client}</p>
+                      <h4 className="font-medium mb-1 text-gray-300">Client</h4>
+                      <p className="text-white">{selectedJob.client}</p>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Payment</h4>
-                      <p className="text-primary font-semibold">{selectedJob.credits} credits</p>
+                      <h4 className="font-medium mb-1 text-gray-300">Payment</h4>
+                      <p className="text-[#c1ff00] font-semibold">{selectedJob.credits} credits</p>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Type</h4>
-                      <p>{selectedJob.type}</p>
+                      <h4 className="font-medium mb-1 text-gray-300">Type</h4>
+                      <p className="text-white">{selectedJob.type}</p>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">Deadline</h4>
-                      <p>{selectedJob.deadline}</p>
+                      <h4 className="font-medium mb-1 text-gray-300">Deadline</h4>
+                      <p className="text-white">{selectedJob.deadline}</p>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-medium mb-2">Prompt</h3>
-                    <div className="bg-muted rounded-lg p-4">
-                      <pre className="text-sm whitespace-pre-wrap font-mono">
+                    <h3 className="text-lg font-medium mb-2 text-white">Prompt</h3>
+                    <div className="bg-[#131729] rounded-lg p-4">
+                      <pre className="text-sm whitespace-pre-wrap font-mono text-gray-300">
                         {selectedJob.prompt}
                       </pre>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-medium mb-2">Generated Content</h3>
-                    <div className="bg-muted rounded-lg p-4">
-                      <pre className="text-sm whitespace-pre-wrap font-mono">
+                    <h3 className="text-lg font-medium mb-2 text-white">Generated Content</h3>
+                    <div className="bg-[#131729] rounded-lg p-4">
+                      <pre className="text-sm whitespace-pre-wrap font-mono text-gray-300">
                         {selectedJob.generatedContent || "No content generated yet"}
                       </pre>
                     </div>

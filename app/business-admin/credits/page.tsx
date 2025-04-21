@@ -70,6 +70,24 @@ const teamMembers = [
     role: "Product Manager",
     allocated: 1500,
     used: 800
+  },
+  {
+    name: "James Wilson",
+    role: "Technical Writer",
+    allocated: 2500,
+    used: 1600
+  },
+  {
+    name: "Lisa Anderson",
+    role: "Content Strategist",
+    allocated: 1800,
+    used: 900
+  },
+  {
+    name: "David Thompson",
+    role: "Marketing Specialist",
+    allocated: 1700,
+    used: 850
   }
 ]
 
@@ -175,9 +193,8 @@ export default function BusinessAdminCreditsPage() {
                 {teamMembers.map((member, index) => (
                   <div key={index} className="bg-muted p-4 rounded-lg">
                     <div className="flex justify-between items-start mb-2">
-                      <div>
+                      <div className="flex-1">
                         <p className="font-medium">{member.name}</p>
-                        <p className="text-sm text-muted-foreground">{member.role}</p>
                       </div>
                       <Button variant="ghost" size="sm">
                         Adjust <ChevronRight className="h-4 w-4 ml-1" />

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -16,6 +17,13 @@ import {
   User,
   EyeIcon
 } from "lucide-react"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 // Mock data for job templates
 const jobTemplates = [
@@ -27,10 +35,11 @@ const jobTemplates = [
 
 // Job status counts
 const jobStatusCounts = [
-  { status: "Submitted", count: 10, color: "bg-red-500 text-white" },
-  { status: "With editor", count: 8, color: "bg-yellow-400 text-black" },
-  { status: "Ready for review", count: 7, color: "bg-green-400 text-black" },
-  { status: "Complete", count: 100, color: "bg-gray-500 text-white" },
+  { status: "Submitted to Network", count: 10 },
+  { status: "With Editor", count: 8 },
+  { status: "Ready for Review", count: 7 },
+  { status: "Draft", count: 5 },
+  { status: "Completed", count: 100 },
 ]
 
 const businessUsers = [
@@ -87,34 +96,34 @@ const businessUsers = [
 const recentJobs = [
   {
     id: "1",
-    title: "Q1 Financial Report",
+    title: "Digital Banking Trends Report",
     user: "Sarah Johnson",
     type: "White Paper",
-    status: "In Progress",
-    credits: 250
+    status: "Draft",
+    credits: 1200
   },
   {
     id: "2",
-    title: "Payment Gateway Launch",
+    title: "Investment Platform Launch",
     user: "Michael Chen",
-    type: "Marketing Copy",
-    status: "Review",
-    credits: 300
+    type: "Social Media Post",
+    status: "Submitted to Network",
+    credits: 800
   },
   {
     id: "3",
     title: "API Documentation",
     user: "James Wilson",
-    type: "Documentation",
-    status: "Completed",
-    credits: 400
+    type: "Technical Documentation",
+    status: "With Editor",
+    credits: 1500
   },
   {
     id: "4",
     title: "Webinar Promotion",
     user: "Lisa Anderson",
     type: "Social Media",
-    status: "In Progress",
+    status: "Ready for Review",
     credits: 200
   },
   {
@@ -122,7 +131,7 @@ const recentJobs = [
     title: "Developer Guide",
     user: "Emma Davis",
     type: "Technical Writing",
-    status: "Review",
+    status: "In Progress",
     credits: 150
   },
   {
@@ -130,7 +139,7 @@ const recentJobs = [
     title: "Monthly Newsletter",
     user: "David Thompson",
     type: "Marketing",
-    status: "In Progress",
+    status: "Completed",
     credits: 200
   }
 ]
@@ -156,13 +165,43 @@ const quickLinks = [
   }
 ]
 
+// Function to get status badge styling (consistent with business user account)
+const getStatusStyle = (status: string) => {
+  switch (status) {
+    case "Review":
+    case "Ready for review":
+    case "Ready for Review":
+      return "bg-yellow-500/20 text-yellow-500"
+    case "Submitted":
+    case "Submitted to Network":
+      return "bg-amber-600/20 text-amber-600"
+    case "With editor":
+    case "With Editor":
+      return "bg-purple-500/20 text-purple-500"
+    case "In Progress":
+      return "bg-blue-500/20 text-blue-500"
+    case "Draft":
+      return "bg-gray-500/20 text-gray-500"
+    case "Complete":
+    case "Completed":
+      return "bg-green-500/20 text-green-500"
+    default:
+      return "bg-muted text-muted-foreground"
+  }
+}
+
 export default function BusinessAdminDashboard() {
   const totalCredits = 5000
   const usedCredits = 1500 // Sum of all user credits used
   const remainingCredits = 3500 // Exactly 3500 as requested
   const creditPercentage = (usedCredits / totalCredits) * 100
+  const [statusFilter, setStatusFilter] = useState("all")
 
   const activeJobs = businessUsers.reduce((total, user) => total + user.activeJobs, 0)
+  
+  const filteredJobs = recentJobs.filter(job => 
+    statusFilter === "all" || job.status === statusFilter
+  )
 
   return (
     <div className="p-8 gradient-bg min-h-screen">
@@ -239,7 +278,7 @@ export default function BusinessAdminDashboard() {
               <div className="space-y-4">
                 {jobStatusCounts.map((status, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <div className={`h-10 w-10 rounded-full ${status.color} flex items-center justify-center font-bold`}>
+                    <div className={`h-10 w-10 rounded-full flex items-center justify-center font-bold ${getStatusStyle(status.status)}`}>
                       {status.count}
                     </div>
                     <Link href={`/business-admin/jobs?status=${status.status}`} className="text-primary underline">
@@ -330,9 +369,25 @@ export default function BusinessAdminDashboard() {
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-semibold">Recent Fintech Jobs</h2>
-                  <Link href="/business-admin/jobs">
-                    <Button variant="outline" size="sm">View All</Button>
-                  </Link>
+                  <div className="flex items-center gap-4">
+                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                      <SelectTrigger className="w-[180px] bg-muted">
+                        <SelectValue placeholder="All Types" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Types</SelectItem>
+                        <SelectItem value="Draft">Draft</SelectItem>
+                        <SelectItem value="Submitted to Network">Submitted to Network</SelectItem>
+                        <SelectItem value="With Editor">With Editor</SelectItem>
+                        <SelectItem value="Ready for Review">Ready for Review</SelectItem>
+                        <SelectItem value="In Progress">In Progress</SelectItem>
+                        <SelectItem value="Completed">Completed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Link href="/business-admin/jobs">
+                      <Button variant="outline" size="sm">View All</Button>
+                    </Link>
+                  </div>
                 </div>
                 <div className="space-y-4">
                   <div className="grid grid-cols-5 text-sm text-muted-foreground pb-2">
@@ -342,21 +397,13 @@ export default function BusinessAdminDashboard() {
                     <div>Status</div>
                     <div>Credits</div>
                   </div>
-                  {recentJobs.map((job) => (
+                  {filteredJobs.map((job) => (
                     <div key={job.id} className="grid grid-cols-5 text-sm py-2 border-t border-border">
                       <div>{job.title}</div>
                       <div>{job.user}</div>
                       <div>{job.type}</div>
                       <div>
-                        <Badge
-                          className={
-                            job.status === "In Progress"
-                              ? "bg-blue-500/20 text-blue-500"
-                              : job.status === "Review"
-                              ? "bg-yellow-500/20 text-yellow-500"
-                              : "bg-green-500/20 text-green-500"
-                          }
-                        >
+                        <Badge className={getStatusStyle(job.status)}>
                           {job.status}
                         </Badge>
                       </div>
@@ -376,17 +423,15 @@ export default function BusinessAdminDashboard() {
                   </Link>
                 </div>
                 <div className="space-y-4">
-                  <div className="grid grid-cols-5 text-sm text-muted-foreground pb-2">
+                  <div className="grid grid-cols-4 text-sm text-muted-foreground pb-2">
                     <div>Name</div>
-                    <div>Email</div>
                     <div>Role</div>
                     <div>Active Jobs</div>
                     <div>Credits Used</div>
                   </div>
                   {businessUsers.map((user) => (
-                    <div key={user.id} className="grid grid-cols-5 text-sm py-2 border-t border-border">
+                    <div key={user.id} className="grid grid-cols-4 text-sm py-2 border-t border-border">
                       <div>{user.name}</div>
-                      <div>{user.email}</div>
                       <div>{user.role}</div>
                       <div>{user.activeJobs}</div>
                       <div>{user.creditsUsed} credits</div>
