@@ -36,11 +36,12 @@ const contentTypes = [
   "Landing Page"
 ]
 
+// Updated jobs to only include Fintech company jobs
 const initialJobs = [
   {
     id: "1",
     title: "Technical Documentation Update",
-    client: "TechCorp Solutions",
+    client: "Fintech Solutions",
     clientLogo: "/fintech-logo.png",
     description: "Update existing technical documentation to reflect new features and improvements",
     deadline: "2024-03-15",
@@ -57,16 +58,68 @@ const initialJobs = [
   },
   {
     id: "2",
-    title: "Blog Post Series",
-    client: "HSBC",
-    clientLogo: "/hsbc-logo.png",
-    description: "Create a series of blog posts about emerging tech trends",
-    deadline: "2024-03-10",
-    type: "Blog Post",
-    credits: 900,
+    title: "Product Launch Announcement",
+    client: "Fintech Solutions",
+    clientLogo: "/fintech-logo.png",
+    description: "Create a press release for our new payment gateway solution",
+    deadline: "2024-03-12",
+    type: "Press Release",
+    credits: 400,
     status: "In Progress",
-    prompt: "Write a series of 3 blog posts covering AI, blockchain, and IoT trends...",
-    generatedContent: "Draft content for blog series..."
+    prompt: "Write a professional press release announcing our new payment gateway solution...",
+    generatedContent: "Draft content for press release..."
+  },
+  {
+    id: "3",
+    title: "Q1 Financial Report",
+    client: "Fintech Solutions",
+    clientLogo: "/fintech-logo.png",
+    description: "Create a detailed financial report for Q1 2024",
+    deadline: "2024-04-05",
+    type: "White Paper",
+    credits: 750,
+    status: "Pending",
+    prompt: "Create a comprehensive financial report covering Q1 2024 results...",
+    generatedContent: ""
+  },
+  {
+    id: "4",
+    title: "Social Media Campaign",
+    client: "Fintech Solutions",
+    clientLogo: "/fintech-logo.png",
+    description: "Develop a series of social media posts for our upcoming webinar",
+    deadline: "2024-03-20",
+    type: "Social Media Post",
+    credits: 350,
+    status: "Active",
+    prompt: "Create 10 engaging social media posts to promote our upcoming webinar on financial technology trends...",
+    generatedContent: "Initial social media content drafts..."
+  },
+  {
+    id: "5",
+    title: "Email Newsletter",
+    client: "Fintech Solutions",
+    clientLogo: "/fintech-logo.png",
+    description: "Monthly newsletter highlighting new features and industry news",
+    deadline: "2024-03-25",
+    type: "Newsletter",
+    credits: 450,
+    status: "Pending",
+    prompt: "Create our monthly newsletter featuring new product updates and key industry developments...",
+    generatedContent: ""
+  },
+  {
+    id: "6",
+    title: "API Integration Guide",
+    client: "Fintech Solutions",
+    clientLogo: "/fintech-logo.png",
+    description: "Technical guide for developers integrating with our payment API",
+    deadline: "2024-04-10",
+    type: "Technical Documentation",
+    credits: 800,
+    status: "Active",
+    prompt: "Develop a comprehensive developer guide for integrating with our payment processing API...",
+    generatedContent: "Initial draft of integration guide..."
   }
 ]
 
@@ -95,7 +148,12 @@ export default function BusinessAdminJobsPage() {
     <div className="p-8 gradient-bg min-h-screen">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-4xl font-bold">All Jobs</h1>
+          <div>
+            <h1 className="text-4xl font-bold">Fintech Solutions Jobs</h1>
+            <p className="text-muted-foreground mt-1">
+              Manage all content jobs for Fintech Solutions
+            </p>
+          </div>
           <Button onClick={() => router.push('/business-admin/create')}>
             Create Job
           </Button>
@@ -140,7 +198,9 @@ export default function BusinessAdminJobsPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-lg">{job.title}</h3>
-                    <p className="text-sm text-muted-foreground">Client: {job.client}</p>
+                    <Badge variant="outline" className="bg-primary/10 text-primary">
+                      {job.status}
+                    </Badge>
                   </div>
                   <p className="text-muted-foreground mt-2">{job.description}</p>
                 </div>
@@ -162,7 +222,6 @@ export default function BusinessAdminJobsPage() {
                   <span>Due: {job.deadline}</span>
                 </div>
                 <Badge variant="secondary">{job.type}</Badge>
-                <Badge className="bg-primary/20 text-primary">{job.status}</Badge>
               </div>
 
               <div className="mt-4 flex gap-2">
@@ -220,7 +279,7 @@ export default function BusinessAdminJobsPage() {
                     <h3 className="text-lg font-medium mb-2">Generated Content</h3>
                     <div className="bg-muted rounded-lg p-4">
                       <pre className="text-sm whitespace-pre-wrap font-mono">
-                        {selectedJob.generatedContent}
+                        {selectedJob.generatedContent || "No content generated yet"}
                       </pre>
                     </div>
                   </div>

@@ -19,7 +19,7 @@ const businessUsers = [
   {
     id: "1",
     name: "Sarah Johnson",
-    email: "sarah@company.com",
+    email: "sarah@fintechsolutions.com",
     role: "Content Manager",
     activeJobs: 3,
     creditsUsed: 250
@@ -27,7 +27,7 @@ const businessUsers = [
   {
     id: "2",
     name: "Michael Chen",
-    email: "michael@company.com",
+    email: "michael@fintechsolutions.com",
     role: "Marketing Lead",
     activeJobs: 2,
     creditsUsed: 300
@@ -35,7 +35,7 @@ const businessUsers = [
   {
     id: "3",
     name: "Emma Davis",
-    email: "emma@company.com",
+    email: "emma@fintechsolutions.com",
     role: "Product Manager",
     activeJobs: 1,
     creditsUsed: 150
@@ -43,7 +43,7 @@ const businessUsers = [
   {
     id: "4",
     name: "James Wilson",
-    email: "james@company.com",
+    email: "james@fintechsolutions.com",
     role: "Technical Writer",
     activeJobs: 2,
     creditsUsed: 400
@@ -51,7 +51,7 @@ const businessUsers = [
   {
     id: "5",
     name: "Lisa Anderson",
-    email: "lisa@company.com",
+    email: "lisa@fintechsolutions.com",
     role: "Content Strategist",
     activeJobs: 1,
     creditsUsed: 200
@@ -59,7 +59,7 @@ const businessUsers = [
   {
     id: "6",
     name: "David Thompson",
-    email: "david@company.com",
+    email: "david@fintechsolutions.com",
     role: "Marketing Specialist",
     activeJobs: 1,
     creditsUsed: 200
@@ -77,7 +77,7 @@ const recentJobs = [
   },
   {
     id: "2",
-    title: "Product Launch Campaign",
+    title: "Payment Gateway Launch",
     user: "Michael Chen",
     type: "Marketing Copy",
     status: "Review",
@@ -85,7 +85,7 @@ const recentJobs = [
   },
   {
     id: "3",
-    title: "Technical Documentation",
+    title: "API Documentation",
     user: "James Wilson",
     type: "Documentation",
     status: "Completed",
@@ -93,7 +93,7 @@ const recentJobs = [
   },
   {
     id: "4",
-    title: "Social Media Strategy",
+    title: "Webinar Promotion",
     user: "Lisa Anderson",
     type: "Social Media",
     status: "In Progress",
@@ -101,7 +101,7 @@ const recentJobs = [
   },
   {
     id: "5",
-    title: "API Documentation",
+    title: "Developer Guide",
     user: "Emma Davis",
     type: "Technical Writing",
     status: "Review",
@@ -109,7 +109,7 @@ const recentJobs = [
   },
   {
     id: "6",
-    title: "Email Campaign",
+    title: "Monthly Newsletter",
     user: "David Thompson",
     type: "Marketing",
     status: "In Progress",
@@ -151,15 +151,15 @@ export default function BusinessAdminDashboard() {
       <div className="max-w-[1400px] mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-4xl font-bold">Business Admin Dashboard</h1>
+            <h1 className="text-4xl font-bold">Fintech Solutions</h1>
             <p className="text-muted-foreground mt-2">
-              Manage your business users, jobs, and credits
+              Business Admin Dashboard
             </p>
           </div>
           <img 
             src="/fintech-logo.png" 
-            alt="Company Logo" 
-            className="h-8"
+            alt="Fintech Solutions Logo" 
+            className="h-12"
           />
         </div>
 
@@ -197,24 +197,37 @@ export default function BusinessAdminDashboard() {
           <Card className="dark-card">
             <div className="p-6">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold">Credits Overview</h3>
+                <h3 className="font-semibold">Credit Balance</h3>
                 <CreditCard className="h-5 w-5 text-primary" />
               </div>
-              <p className="text-3xl font-bold mt-4">£{remainingCredits}</p>
+              <p className="text-3xl font-bold mt-4">{remainingCredits}</p>
               <div className="mt-2">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-muted-foreground">Usage</span>
-                  <span>£{usedCredits}/£{totalCredits}</span>
+                <div className="flex items-center justify-between mb-1 text-sm">
+                  <span>Used: {usedCredits}</span>
+                  <span>Total: {totalCredits}</span>
                 </div>
                 <Progress value={creditPercentage} className="h-2" />
               </div>
-              <Link href="/business-admin/credits">
-                <Button variant="link" className="text-primary p-0 mt-4">
-                  Manage Credits
-                </Button>
-              </Link>
             </div>
           </Card>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {quickLinks.map((link, index) => (
+            <Link href={link.href} key={index}>
+              <Card className="dark-card h-full hover:border-primary/50 transition-colors cursor-pointer">
+                <div className="p-6 flex items-center gap-4">
+                  <div className={`h-12 w-12 rounded-full bg-card flex items-center justify-center ${link.color}`}>
+                    <link.icon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{link.title}</h3>
+                    <p className="text-sm text-muted-foreground">Quick access</p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -222,7 +235,7 @@ export default function BusinessAdminDashboard() {
             <Card className="dark-card">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Recent Jobs</h2>
+                  <h2 className="text-xl font-semibold">Recent Fintech Jobs</h2>
                   <Link href="/business-admin/jobs">
                     <Button variant="outline" size="sm">View All</Button>
                   </Link>
@@ -263,9 +276,9 @@ export default function BusinessAdminDashboard() {
             <Card className="dark-card">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Business Users</h2>
+                  <h2 className="text-xl font-semibold">Fintech Team Members</h2>
                   <Link href="/business-admin/users">
-                    <Button variant="outline" size="sm">Manage Users</Button>
+                    <Button variant="outline" size="sm">Manage Team</Button>
                   </Link>
                 </div>
                 <div className="space-y-4">
@@ -293,45 +306,71 @@ export default function BusinessAdminDashboard() {
           <div className="space-y-6">
             <Card className="dark-card">
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
-                <div className="space-y-3">
-                  {quickLinks.map((link) => (
-                    <Link key={link.title} href={link.href}>
-                      <div className="flex items-center gap-3 p-3 rounded-lg bg-muted hover:bg-muted/80 transition-colors">
-                        <div className={`p-2 rounded-lg bg-card ${link.color}`}>
-                          <link.icon className="h-4 w-4" />
-                        </div>
-                        <span className="font-medium">{link.title}</span>
-                      </div>
-                    </Link>
-                  ))}
+                <h2 className="text-xl font-semibold mb-4">Content Stats</h2>
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Technical Documentation</span>
+                      <span className="font-medium">30%</span>
+                    </div>
+                    <Progress value={30} className="h-2" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Marketing Content</span>
+                      <span className="font-medium">25%</span>
+                    </div>
+                    <Progress value={25} className="h-2" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Financial Reports</span>
+                      <span className="font-medium">20%</span>
+                    </div>
+                    <Progress value={20} className="h-2" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Social Media</span>
+                      <span className="font-medium">15%</span>
+                    </div>
+                    <Progress value={15} className="h-2" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span>Other</span>
+                      <span className="font-medium">10%</span>
+                    </div>
+                    <Progress value={10} className="h-2" />
+                  </div>
                 </div>
               </div>
             </Card>
 
             <Card className="dark-card">
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Credit Usage</h2>
+                <h2 className="text-xl font-semibold mb-4">Activity</h2>
                 <div className="space-y-4">
-                  <div className="bg-muted p-4 rounded-lg">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-muted-foreground">This Month</span>
-                      <span className="font-medium">£850</span>
-                    </div>
-                    <Progress value={75} className="h-1" />
+                  <div className="flex items-center gap-3">
+                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <p className="text-sm">New job created by Sarah</p>
+                    <span className="text-xs text-muted-foreground ml-auto">2h ago</span>
                   </div>
-                  <div className="bg-muted p-4 rounded-lg">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-muted-foreground">Last Month</span>
-                      <span className="font-medium">£650</span>
-                    </div>
-                    <Progress value={60} className="h-1" />
+                  <div className="flex items-center gap-3">
+                    <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                    <p className="text-sm">API docs completed by James</p>
+                    <span className="text-xs text-muted-foreground ml-auto">6h ago</span>
                   </div>
-                  <Link href="/business-admin/credits">
-                    <Button className="w-full">
-                      View Credit Details
-                    </Button>
-                  </Link>
+                  <div className="flex items-center gap-3">
+                    <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
+                    <p className="text-sm">Credit purchase approved</p>
+                    <span className="text-xs text-muted-foreground ml-auto">1d ago</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+                    <p className="text-sm">New user added to the team</p>
+                    <span className="text-xs text-muted-foreground ml-auto">2d ago</span>
+                  </div>
                 </div>
               </div>
             </Card>
