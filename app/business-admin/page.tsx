@@ -12,8 +12,26 @@ import {
   PlusCircle,
   Receipt,
   UserPlus,
-  ArrowUpRight
+  ArrowUpRight,
+  User,
+  EyeIcon
 } from "lucide-react"
+
+// Mock data for job templates
+const jobTemplates = [
+  { id: 1, name: "API Documentation", count: 10 },
+  { id: 2, name: "Financial Reports", count: 8 },
+  { id: 3, name: "Marketing Content", count: 7 },
+  { id: 4, name: "Technical Guides", count: 100 },
+]
+
+// Job status counts
+const jobStatusCounts = [
+  { status: "Submitted", count: 10, color: "bg-red-500 text-white" },
+  { status: "With editor", count: 8, color: "bg-yellow-400 text-black" },
+  { status: "Ready for review", count: 7, color: "bg-green-400 text-black" },
+  { status: "Complete", count: 100, color: "bg-gray-500 text-white" },
+]
 
 const businessUsers = [
   {
@@ -161,6 +179,82 @@ export default function BusinessAdminDashboard() {
             alt="Fintech Solutions Logo" 
             className="h-12"
           />
+        </div>
+
+        {/* Job Counters Section (New) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Job Types Counter */}
+          <Card className="dark-card">
+            <div className="p-6">
+              <h3 className="font-semibold mb-4">Job Types Total Counter</h3>
+              <div className="space-y-4">
+                {jobTemplates.map((template) => (
+                  <div key={template.id} className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
+                      {template.count}
+                    </div>
+                    <Link href={`/business-admin/jobs?template=${template.id}`} className="text-primary underline">
+                      {template.name}
+                    </Link>
+                  </div>
+                ))}
+                <div className="mt-4 text-right">
+                  <Link href="/business-admin/jobs">
+                    <Button variant="outline" size="sm">View Jobs</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Users & Spend */}
+          <Card className="dark-card">
+            <div className="p-6">
+              <h3 className="font-semibold mb-4">Users & Spend</h3>
+              <div className="space-y-4">
+                {businessUsers.slice(0, 4).map((user) => (
+                  <div key={user.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-8 w-8 rounded-full bg-black text-white flex items-center justify-center">
+                        <User className="h-4 w-4" />
+                      </div>
+                      <span>{user.name}</span>
+                    </div>
+                    <span className="font-medium">£{user.creditsUsed}</span>
+                  </div>
+                ))}
+                <div className="mt-4 text-right">
+                  <Link href="/business-admin/users">
+                    <Button variant="outline" size="sm">Add/Remove</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Job Status Counter */}
+          <Card className="dark-card">
+            <div className="p-6">
+              <h3 className="font-semibold mb-4">Current Job Counter</h3>
+              <div className="space-y-4">
+                {jobStatusCounts.map((status, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <div className={`h-10 w-10 rounded-full ${status.color} flex items-center justify-center font-bold`}>
+                      {status.count}
+                    </div>
+                    <Link href={`/business-admin/jobs?status=${status.status}`} className="text-primary underline">
+                      {status.status}
+                    </Link>
+                  </div>
+                ))}
+                <div className="mt-4 text-right">
+                  <Link href="/business-admin/jobs">
+                    <Button variant="outline" size="sm">View Jobs</Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Card>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
