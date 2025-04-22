@@ -216,7 +216,7 @@ export default function BusinessAdminDashboard() {
           <img 
             src="/fintech-logo.png" 
             alt="Fintech Solutions Logo" 
-            className="h-12"
+            className="h-14"
           />
         </div>
 
@@ -224,9 +224,14 @@ export default function BusinessAdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Job Types Counter */}
           <Card className="dark-card">
-            <div className="p-6">
-              <h3 className="font-semibold mb-4">Job Types Total Counter</h3>
-              <div className="space-y-4">
+            <div className="p-5">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-semibold">Job Types Total Counter</h3>
+                <Link href="/business-admin/jobs">
+                  <Button variant="outline" size="sm">View Jobs</Button>
+                </Link>
+              </div>
+              <div className="space-y-3 mt-4">
                 {jobTemplates.map((template) => (
                   <div key={template.id} className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
@@ -237,20 +242,20 @@ export default function BusinessAdminDashboard() {
                     </Link>
                   </div>
                 ))}
-                <div className="mt-4 text-right">
-                  <Link href="/business-admin/jobs">
-                    <Button variant="outline" size="sm">View Jobs</Button>
-                  </Link>
-                </div>
               </div>
             </div>
           </Card>
 
           {/* Users & Spend */}
           <Card className="dark-card">
-            <div className="p-6">
-              <h3 className="font-semibold mb-4">Users & Spend</h3>
-              <div className="space-y-4">
+            <div className="p-5">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-semibold">Users & Spend</h3>
+                <Link href="/business-admin/users">
+                  <Button variant="outline" size="sm">Add/Remove</Button>
+                </Link>
+              </div>
+              <div className="space-y-3 mt-4">
                 {businessUsers.slice(0, 4).map((user) => (
                   <div key={user.id} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -262,20 +267,20 @@ export default function BusinessAdminDashboard() {
                     <span className="font-medium">{user.creditsUsed} credits</span>
                   </div>
                 ))}
-                <div className="mt-4 text-right">
-                  <Link href="/business-admin/users">
-                    <Button variant="outline" size="sm">Add/Remove</Button>
-                  </Link>
-                </div>
               </div>
             </div>
           </Card>
 
           {/* Job Status Counter */}
           <Card className="dark-card">
-            <div className="p-6">
-              <h3 className="font-semibold mb-4">Current Job Counter</h3>
-              <div className="space-y-4">
+            <div className="p-5">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-semibold">Current Job Counter</h3>
+                <Link href="/business-admin/jobs">
+                  <Button variant="outline" size="sm">View Jobs</Button>
+                </Link>
+              </div>
+              <div className="space-y-3 mt-4">
                 {jobStatusCounts.map((status, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <div className={`h-10 w-10 rounded-full flex items-center justify-center font-bold ${getStatusStyle(status.status)}`}>
@@ -286,11 +291,6 @@ export default function BusinessAdminDashboard() {
                     </Link>
                   </div>
                 ))}
-                <div className="mt-4 text-right">
-                  <Link href="/business-admin/jobs">
-                    <Button variant="outline" size="sm">View Jobs</Button>
-                  </Link>
-                </div>
               </div>
             </div>
           </Card>
@@ -298,12 +298,12 @@ export default function BusinessAdminDashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="dark-card">
-            <div className="p-6">
+            <div className="p-5">
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">Total Users</h3>
                 <Users className="h-5 w-5 text-primary" />
               </div>
-              <p className="text-3xl font-bold mt-4">{businessUsers.length}</p>
+              <p className="text-3xl font-bold mt-3">{businessUsers.length}</p>
               <div className="flex items-center gap-2 mt-2 text-sm">
                 <ArrowUpRight className="h-4 w-4 text-green-500" />
                 <span className="text-green-500">All Active</span>
@@ -313,12 +313,12 @@ export default function BusinessAdminDashboard() {
           </Card>
 
           <Card className="dark-card">
-            <div className="p-6">
+            <div className="p-5">
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">Active Jobs</h3>
                 <FileText className="h-5 w-5 text-primary" />
               </div>
-              <p className="text-3xl font-bold mt-4">{activeJobs}</p>
+              <p className="text-3xl font-bold mt-3">{activeJobs}</p>
               <div className="flex items-center gap-2 mt-2 text-sm">
                 <ArrowUpRight className="h-4 w-4 text-green-500" />
                 <span className="text-green-500">{recentJobs.filter(job => job.status === "In Progress").length} jobs</span>
@@ -328,12 +328,12 @@ export default function BusinessAdminDashboard() {
           </Card>
 
           <Card className="dark-card">
-            <div className="p-6">
+            <div className="p-5">
               <div className="flex items-center justify-between">
                 <h3 className="font-semibold">Credit Balance</h3>
                 <CreditCard className="h-5 w-5 text-primary" />
               </div>
-              <p className="text-3xl font-bold mt-4">{remainingCredits}</p>
+              <p className="text-3xl font-bold mt-3">{remainingCredits}</p>
               <div className="mt-2">
                 <div className="flex items-center justify-between mb-1 text-sm">
                   <span>Used: {usedCredits}</span>
@@ -349,7 +349,7 @@ export default function BusinessAdminDashboard() {
           {quickLinks.map((link, index) => (
             <Link href={link.href} key={index}>
               <Card className="dark-card h-full hover:border-primary/50 transition-colors cursor-pointer">
-                <div className="p-6 flex items-center gap-4">
+                <div className="p-5 flex items-center gap-4">
                   <div className={`h-12 w-12 rounded-full bg-card flex items-center justify-center ${link.color}`}>
                     <link.icon className="h-6 w-6" />
                   </div>
@@ -366,7 +366,7 @@ export default function BusinessAdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             <Card className="dark-card">
-              <div className="p-6">
+              <div className="p-5">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-semibold">Recent Fintech Jobs</h2>
                   <div className="flex items-center gap-4">
@@ -415,7 +415,7 @@ export default function BusinessAdminDashboard() {
             </Card>
 
             <Card className="dark-card">
-              <div className="p-6">
+              <div className="p-5">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-semibold">Fintech Team Members</h2>
                   <Link href="/business-admin/users">
@@ -444,8 +444,8 @@ export default function BusinessAdminDashboard() {
 
           <div className="space-y-6">
             <Card className="dark-card">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Content Stats</h2>
+              <div className="p-5">
+                <h2 className="text-xl font-semibold mb-3">Content Stats</h2>
                 <div className="space-y-4">
                   <div>
                     <div className="flex justify-between text-sm mb-1">
@@ -487,8 +487,8 @@ export default function BusinessAdminDashboard() {
             </Card>
 
             <Card className="dark-card">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Activity</h2>
+              <div className="p-5">
+                <h2 className="text-xl font-semibold mb-3">Activity</h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="h-2 w-2 rounded-full bg-green-500"></div>
