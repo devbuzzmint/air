@@ -10,31 +10,36 @@ const jobs = [
     clientName: "London Writings Club",
     workType: "Newsletter",
     status: "Ready for Review",
-    deadline: "01/02/2025"
+    deadline: "01/02/2025",
+    credits: 138
   },
   {
     clientName: "HumAI - Healthcare",
     workType: "Article",
     status: "Submitted to Network",
-    deadline: "21/02/2025"
+    deadline: "21/02/2025",
+    credits: 230
   },
   {
     clientName: "APEX Lawyers",
-    workType: "Social Post",
+    workType: "Brochure",
     status: "Completed",
-    deadline: "23/02/2025"
+    deadline: "23/02/2025",
+    credits: 184
   },
   {
     clientName: "OBO Logistics",
     workType: "Newsletter",
     status: "With Editor",
-    deadline: "01/02/2025"
+    deadline: "01/02/2025",
+    credits: 138
   },
   {
     clientName: "Simmonds Food",
     workType: "Article",
     status: "Draft",
-    deadline: "26/03/2025"
+    deadline: "26/03/2025",
+    credits: 230
   }
 ]
 
@@ -43,6 +48,13 @@ export default function BusinessDashboard() {
   const remainingCredits = 1930
   const usedCredits = totalCredits - remainingCredits
   const creditPercentage = (remainingCredits / totalCredits) * 100
+
+  // Sort jobs by deadline (closest first)
+  const sortedJobs = [...jobs].sort((a, b) => {
+    const dateA = new Date(a.deadline.split('/').reverse().join('-')).getTime()
+    const dateB = new Date(b.deadline.split('/').reverse().join('-')).getTime()
+    return dateA - dateB
+  })
 
   return (
     <div className="p-8 gradient-bg min-h-screen">
@@ -68,7 +80,7 @@ export default function BusinessDashboard() {
                     <div>Status</div>
                     <div>Deadline</div>
                   </div>
-                  {jobs.map((job, i) => (
+                  {sortedJobs.map((job, i) => (
                     <div key={i} className="grid grid-cols-4 text-sm py-2 border-t border-border">
                       <div>{job.clientName}</div>
                       <div>{job.workType}</div>
@@ -108,8 +120,8 @@ export default function BusinessDashboard() {
                     <div className="text-sm text-muted-foreground mt-1">Ready for Review</div>
                   </div>
                   <div className="bg-muted p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-green-500">36</div>
-                    <div className="text-sm text-muted-foreground mt-1">Completed</div>
+                    <div className="text-3xl font-bold text-green-500">3</div>
+                    <div className="text-sm text-muted-foreground mt-1">With Editor</div>
                   </div>
                   <div className="bg-muted p-4 rounded-lg text-center">
                     <div className="text-3xl font-bold text-gray-500">2</div>
@@ -121,7 +133,7 @@ export default function BusinessDashboard() {
 
             <Card className="dark-card">
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Credits Overview</h2>
+                <h2 className="text-xl font-semibold mb-4">Monthly Credit Overview</h2>
                 <div className="space-y-6">
                   <div className="text-center">
                     <div className="relative inline-flex items-center justify-center">
@@ -151,16 +163,15 @@ export default function BusinessDashboard() {
                       </svg>
                       <div className="absolute text-center">
                         <div className="text-2xl font-bold">1930</div>
+                        <div className="w-8 h-px bg-white mx-auto my-1"></div>
                         <div className="text-sm text-muted-foreground">2500</div>
                       </div>
                     </div>
                   </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span>Usage</span>
-                      <span className="font-medium">1930/2500</span>
-                    </div>
-                    <Progress value={creditPercentage} className="h-2" />
+                  <div className="text-center">
+                    <p className="text-sm">
+                      Credits renew on <span style={{ color: "#ABFF2E" }}>27/04/2025</span>
+                    </p>
                   </div>
                 </div>
               </div>

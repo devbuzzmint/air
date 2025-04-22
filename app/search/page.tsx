@@ -45,7 +45,7 @@ const initialJobs = [
     description: "Update existing technical documentation to reflect new features and improvements",
     deadline: "2024-03-15",
     type: "Technical Documentation",
-    credits: 600,
+    payment: 46.00,
     prompt: `Create comprehensive technical documentation for our updated API endpoints. Include:
 - Authentication methods
 - Endpoint specifications
@@ -62,7 +62,7 @@ const initialJobs = [
     description: "Create a series of blog posts about emerging tech trends",
     deadline: "2024-03-10",
     type: "Blog Post",
-    credits: 900,
+    payment: 27.60,
     prompt: "Write a series of 3 blog posts covering AI, blockchain, and IoT trends...",
     generatedContent: "Draft content for blog series..."
   },
@@ -74,7 +74,7 @@ const initialJobs = [
     description: "Optimize product descriptions for better conversion",
     deadline: "2024-03-01",
     type: "Product Description",
-    credits: 300,
+    payment: 18.40,
     prompt: "Update product descriptions to highlight key features and benefits...",
     generatedContent: "Updated product descriptions..."
   },
@@ -86,7 +86,7 @@ const initialJobs = [
     description: "Create a detailed white paper on emerging semiconductor technologies",
     deadline: "2024-03-20",
     type: "White Paper",
-    credits: 1200,
+    payment: 138.00,
     prompt: "Write a comprehensive white paper on semiconductor advancements...",
     generatedContent: "White paper draft content..."
   }
@@ -199,7 +199,7 @@ export default function SearchPage() {
                     className="h-8 w-auto object-contain mb-2"
                   />
                   <span className="text-xl font-semibold text-primary">
-                    £{job.credits}
+                    £{job.payment.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -245,7 +245,7 @@ export default function SearchPage() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Payment</h4>
-                      <p className="text-primary font-semibold">£{selectedJob.credits}</p>
+                      <p className="text-primary font-semibold">£{selectedJob.payment.toFixed(2)}</p>
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Type</h4>

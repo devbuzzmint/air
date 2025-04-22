@@ -9,19 +9,22 @@ const availableJobs = [
     clientName: "Quantum Technologies",
     workType: "Technical Blog",
     status: "New",
-    deadline: "15/04/2025"
+    deadline: "15/04/2025",
+    payment: 27.60
   },
   {
     clientName: "Green Earth Initiative",
     workType: "Newsletter",
     status: "New",
-    deadline: "18/04/2025"
+    deadline: "18/04/2025",
+    payment: 27.60
   },
   {
     clientName: "Metro Finance",
     workType: "White Paper",
     status: "New",
-    deadline: "20/04/2025"
+    deadline: "20/04/2025",
+    payment: 138.00
   }
 ]
 
@@ -30,31 +33,36 @@ const myJobs = [
     clientName: "London Writings Club",
     workType: "Newsletter",
     status: "To do",
-    deadline: "01/02/2025"
+    deadline: "01/02/2025",
+    payment: 27.60
   },
   {
     clientName: "HumAI - Healthcare",
     workType: "Article",
     status: "With client",
-    deadline: "21/02/2025"
+    deadline: "21/02/2025",
+    payment: 46.00
   },
   {
     clientName: "APEX Lawyers",
     workType: "Social Post",
     status: "To do",
-    deadline: "23/02/2025"
+    deadline: "23/02/2025",
+    payment: 9.20
   },
   {
     clientName: "OBO Logistics",
     workType: "Newsletter",
     status: "Completed",
-    deadline: "01/02/2025"
+    deadline: "01/02/2025",
+    payment: 27.60
   },
   {
     clientName: "Simmonds Food",
     workType: "Article",
     status: "Completed",
-    deadline: "26/03/2025"
+    deadline: "26/03/2025",
+    payment: 46.00
   }
 ]
 
@@ -121,13 +129,6 @@ export default function EditorDashboard() {
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-semibold">My Jobs</h2>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>Active: 2/3</span>
-                    <span>•</span>
-                    <span>In Review: 1</span>
-                    <span>•</span>
-                    <span>Completed: 2</span>
-                  </div>
                 </div>
                 <div className="space-y-4">
                   <div className="grid grid-cols-4 text-sm text-muted-foreground pb-2">
@@ -166,7 +167,7 @@ export default function EditorDashboard() {
                 <h2 className="text-xl font-semibold mb-4">Job Counter</h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-muted p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-yellow-500">3</div>
+                    <div className="text-3xl font-bold text-yellow-500">6</div>
                     <div className="text-sm text-muted-foreground mt-1">Open Jobs</div>
                   </div>
                   <div className="bg-muted p-4 rounded-lg text-center">
@@ -174,7 +175,7 @@ export default function EditorDashboard() {
                     <div className="text-sm text-muted-foreground mt-1">To do</div>
                   </div>
                   <div className="bg-muted p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-blue-500">36</div>
+                    <div className="text-3xl font-bold text-blue-500">3</div>
                     <div className="text-sm text-muted-foreground mt-1">With client</div>
                   </div>
                   <div className="bg-muted p-4 rounded-lg text-center">

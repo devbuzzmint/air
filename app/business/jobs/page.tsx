@@ -42,7 +42,7 @@ const initialJobs = [
     status: "Draft",
     deadline: "2024-03-15",
     type: "White Paper",
-    credits: 1200,
+    credits: 690,
     promptAnswers: {
       authorName: "Sarah Johnson, Head of Digital Innovation, FinTech Solutions",
       industry: "Digital Banking and Financial Technology",
@@ -124,7 +124,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Submitted to Network",
     deadline: "2024-03-10",
     type: "Social Media Post",
-    credits: 800,
+    credits: 46,
     promptAnswers: {
       authorName: "Marketing Team, Investment Solutions",
       industry: "Investment Management",
@@ -147,7 +147,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "With Editor",
     deadline: "2024-03-01",
     type: "Technical Documentation",
-    credits: 1500,
+    credits: 230,
     prompt: "Create comprehensive API documentation covering endpoints, authentication, and integration guides...",
     generatedContent: "API documentation draft..."
   },
@@ -158,7 +158,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Ready for Review",
     deadline: "2024-03-20",
     type: "White Paper",
-    credits: 1800,
+    credits: 690,
     prompt: "Analyze current cryptocurrency market trends and institutional investment patterns...",
     generatedContent: "Cryptocurrency analysis draft..."
   },
@@ -169,7 +169,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Draft",
     deadline: "2024-03-25",
     type: "Technical Documentation",
-    credits: 2200,
+    credits: 230,
     prompt: "Create detailed user documentation for mobile banking features...",
     generatedContent: "Mobile app documentation draft..."
   },
@@ -180,7 +180,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "With Editor",
     deadline: "2024-03-18",
     type: "Blog Post",
-    credits: 900,
+    credits: 138,
     prompt: "Create engaging blog posts about fintech innovations...",
     generatedContent: "Fintech innovation blog series draft..."
   },
@@ -191,7 +191,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Completed",
     deadline: "2024-02-28",
     type: "Newsletter",
-    credits: 600,
+    credits: 138,
     prompt: "Develop quarterly investor newsletter content...",
     generatedContent: "Q1 newsletter content..."
   },
@@ -202,7 +202,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Ready for Review",
     deadline: "2024-03-22",
     type: "Product Description",
-    credits: 750,
+    credits: 92,
     prompt: "Update trading platform feature descriptions...",
     generatedContent: "Updated feature descriptions..."
   },
@@ -213,7 +213,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Draft",
     deadline: "2024-04-01",
     type: "Social Media Post",
-    credits: 1100,
+    credits: 92,
     prompt: "Create financial education content strategy...",
     generatedContent: "Financial education campaign draft..."
   },
@@ -224,7 +224,7 @@ Download our comprehensive digital banking implementation guide to learn more ab
     status: "Submitted to Network",
     deadline: "2024-03-28",
     type: "White Paper",
-    credits: 1600,
+    credits: 690,
     prompt: "Research and analyze blockchain technology in finance...",
     generatedContent: "Blockchain technology report draft..."
   }
@@ -246,6 +246,22 @@ export default function BusinessJobsPage() {
     const matchesType = typeFilter === "all" || job.type === typeFilter
     
     return matchesSearch && matchesStatus && matchesType
+  }).sort((a, b) => {
+    // Define the priority order for statuses
+    const statusPriority: Record<string, number> = {
+      "Ready for Review": 1,
+      "With Editor": 2,
+      "Draft": 3,
+      "Submitted to Network": 4,
+      "Completed": 5
+    }
+    
+    // First sort by status priority
+    const statusDiff = statusPriority[a.status] - statusPriority[b.status]
+    if (statusDiff !== 0) return statusDiff
+    
+    // If status is the same, sort by deadline (earlier first)
+    return new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
   })
 
   const getStatusStyle = (status: string) => {

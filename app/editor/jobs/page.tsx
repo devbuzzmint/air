@@ -47,7 +47,7 @@ const initialJobs = [
     description: "Update existing technical documentation to reflect new features and improvements",
     deadline: "2024-03-01",
     type: "Technical Documentation",
-    credits: 600,
+    payment: 46.00,
     status: "To do",
     prompt: `Create comprehensive technical documentation for our updated API endpoints. Include:
 - Authentication methods
@@ -55,7 +55,11 @@ const initialJobs = [
 - Request/response examples
 - Error handling
 - Best practices`,
-    generatedContent: "Initial content for technical documentation..."
+    generatedContent: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.`
   },
   {
     id: "2",
@@ -65,7 +69,7 @@ const initialJobs = [
     description: "Create a series of blog posts about emerging tech trends",
     deadline: "2024-03-10",
     type: "Blog Post",
-    credits: 900,
+    payment: 27.60,
     status: "With client",
     prompt: "Write a series of 3 blog posts covering AI, blockchain, and IoT trends...",
     generatedContent: "Draft content for blog series..."
@@ -78,7 +82,7 @@ const initialJobs = [
     description: "Optimize product descriptions for better conversion",
     deadline: "2024-03-01",
     type: "Product Description",
-    credits: 300,
+    payment: 18.40,
     status: "Ready for Review",
     prompt: "Update product descriptions to highlight key features and benefits...",
     generatedContent: "Updated product descriptions..."
@@ -91,10 +95,27 @@ const initialJobs = [
     description: "Create a detailed white paper on emerging semiconductor technologies",
     deadline: "2024-03-20",
     type: "White Paper",
-    credits: 1200,
+    payment: 138.00,
     status: "Completed",
     prompt: "Write a comprehensive white paper on semiconductor advancements...",
     generatedContent: "White paper draft content..."
+  },
+  {
+    id: "5",
+    title: "Marketing Campaign Content",
+    client: "Nike",
+    clientLogo: "/nike-logo.png",
+    description: "Create engaging content for the new product launch campaign",
+    deadline: "2024-03-15",
+    type: "Marketing Copy",
+    payment: 92.00,
+    status: "To do",
+    prompt: "Write compelling marketing copy for the new product launch...",
+    generatedContent: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.`
   }
 ]
 
@@ -283,7 +304,7 @@ export default function EditorJobsPage() {
                     className="h-8 w-auto object-contain mb-2"
                   />
                   <span className="text-xl font-semibold text-primary">
-                    £{job.credits}
+                    £{job.payment.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -349,7 +370,7 @@ export default function EditorJobsPage() {
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Payment</h4>
-                      <p className="text-primary font-semibold">£{selectedJob.credits}</p>
+                      <p className="text-primary font-semibold">£{selectedJob.payment.toFixed(2)}</p>
                     </div>
                     <div>
                       <h4 className="font-medium mb-1">Type</h4>
@@ -429,7 +450,9 @@ export default function EditorJobsPage() {
             <div className="space-y-6">
               {selectedJob && (
                 <div className="space-y-2">
-                  <h3 className="font-medium">Job Details</h3>
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-medium">Job Details</h3>
+                  </div>
                   <div className="bg-muted p-4 rounded-lg space-y-2">
                     <p><span className="text-muted-foreground">Title:</span> {selectedJob.title}</p>
                     <p><span className="text-muted-foreground">Client:</span> {selectedJob.client}</p>
@@ -439,7 +462,42 @@ export default function EditorJobsPage() {
               )}
 
               <div className="space-y-2">
-                <h3 className="font-medium">Content</h3>
+                <div className="flex justify-between items-center">
+                  <h3 className="font-medium">Content</h3>
+                  <div className="flex gap-2">
+                    <Button 
+                      className="bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90"
+                      onClick={() => {
+                        if (selectedJob) {
+                          setCompletionForm(prev => ({
+                            ...prev,
+                            content: selectedJob.generatedContent
+                          }))
+                        }
+                      }}
+                    >
+                      Load Original Content
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        if (selectedJob) {
+                          const blob = new Blob([selectedJob.generatedContent], { type: 'text/plain' });
+                          const url = window.URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = `${selectedJob.title.toLowerCase().replace(/\s+/g, '-')}-original.txt`;
+                          document.body.appendChild(a);
+                          a.click();
+                          document.body.removeChild(a);
+                          window.URL.revokeObjectURL(url);
+                        }
+                      }}
+                    >
+                      Download as .txt
+                    </Button>
+                  </div>
+                </div>
                 <Textarea
                   value={completionForm.content}
                   onChange={(e) => setCompletionForm(prev => ({ ...prev, content: e.target.value }))}
