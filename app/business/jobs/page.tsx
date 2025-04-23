@@ -6,12 +6,14 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Search, Send } from "lucide-react"
+import { Search, Send, ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog"
 import {
   Select,
@@ -20,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Progress } from "@/components/ui/progress"
+import { Textarea } from "@/components/ui/textarea"
 
 const contentTypes = [
   "Blog Post",
@@ -238,6 +242,11 @@ export default function BusinessJobsPage() {
   const [typeFilter, setTypeFilter] = useState("all")
   const [selectedJob, setSelectedJob] = useState<typeof initialJobs[0] | null>(null)
   const [showDetailsDialog, setShowDetailsDialog] = useState(false)
+  const [showReviewDialog, setShowReviewDialog] = useState(false)
+  const [showFeedbackDialog, setShowFeedbackDialog] = useState(false)
+  const [feedbackMessage, setFeedbackMessage] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isApproved, setIsApproved] = useState(false)
 
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -250,9 +259,9 @@ export default function BusinessJobsPage() {
     // Define the priority order for statuses
     const statusPriority: Record<string, number> = {
       "Ready for Review": 1,
-      "With Editor": 2,
-      "Draft": 3,
-      "Submitted to Network": 4,
+      "Submitted to Network": 2,
+      "With Editor": 3,
+      "Draft": 4,
       "Completed": 5
     }
     
@@ -281,7 +290,7 @@ export default function BusinessJobsPage() {
     }
   }
 
-  const handleViewDetails = (job: typeof initialJobs[0]) => {
+  const handleViewDetails = (job: typeof jobs[0]) => {
     setSelectedJob(job)
     setShowDetailsDialog(true)
   }
@@ -293,6 +302,60 @@ export default function BusinessJobsPage() {
         : job
     ))
     setShowDetailsDialog(false)
+  }
+
+  const handleReviewContent = (job: typeof jobs[0]) => {
+    setSelectedJob(job)
+    setShowReviewDialog(true)
+  }
+
+  const handleFeedback = (isPositive: boolean) => {
+    if (isPositive) {
+      setIsApproved(true)
+    } else {
+      setShowFeedbackDialog(true)
+    }
+  }
+
+  const handleReviewDialogChange = (open: boolean) => {
+    if (!open) {
+      setIsApproved(false)
+    }
+    setShowReviewDialog(open)
+  }
+
+  const handleSubmitFeedback = async () => {
+    setIsSubmitting(true)
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      setShowFeedbackDialog(false)
+      setShowReviewDialog(false)
+      setFeedbackMessage("")
+      // You could add a success toast here
+    } catch (error) {
+      // Handle error
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleCompleteJob = async () => {
+    setIsSubmitting(true)
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      // Update job status to completed
+      setJobs(prev => prev.map(job => 
+        job.id === selectedJob?.id ? { ...job, status: "Completed" } : job
+      ))
+      setShowReviewDialog(false)
+      // You could add a success toast here
+    } catch (error) {
+      // Handle error
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -388,7 +451,7 @@ export default function BusinessJobsPage() {
                   </Button>
                 )}
                 {job.status === "Ready for Review" && (
-                  <Button variant="default" onClick={() => handleViewDetails(job)}>
+                  <Button variant="default" onClick={() => handleReviewContent(job)}>
                     Review Content
                   </Button>
                 )}
@@ -510,6 +573,103 @@ export default function BusinessJobsPage() {
                 </div>
               </>
             )}
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showReviewDialog} onOpenChange={handleReviewDialogChange}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle>Content for Review</DialogTitle>
+              <DialogDescription>
+                Please review the content and provide your feedback
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-6 my-4">
+              <div className="bg-muted p-6 rounded-lg space-y-4">
+                <h3 className="font-medium text-lg">{selectedJob?.title}</h3>
+                <div className="prose prose-sm dark:prose-invert space-y-6">
+                  <p className="mb-6">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+
+                  <p className="mb-6">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                  </p>
+
+                  <p className="mb-6">
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex justify-center gap-4">
+                <Button
+                  variant={isApproved ? "default" : "outline"}
+                  size="lg"
+                  className={`w-32 ${isApproved ? "bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90" : ""}`}
+                  onClick={() => handleFeedback(true)}
+                >
+                  <ThumbsUp className={`mr-2 h-5 w-5 ${isApproved ? "fill-current" : ""}`} />
+                  Approve
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-32"
+                  onClick={() => handleFeedback(false)}
+                  disabled={isApproved}
+                >
+                  <ThumbsDown className="mr-2 h-5 w-5" />
+                  Reject
+                </Button>
+              </div>
+
+              <div className="flex justify-center">
+                <Button 
+                  className="bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90 w-48"
+                  onClick={handleCompleteJob}
+                  disabled={!isApproved || isSubmitting}
+                >
+                  Complete & Close Job
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showFeedbackDialog} onOpenChange={setShowFeedbackDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Send Feedback to Account Manager</DialogTitle>
+              <DialogDescription>
+                Please provide details about why the content needs revision
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4 my-4">
+              <Textarea
+                placeholder="Enter your feedback here..."
+                value={feedbackMessage}
+                onChange={(e) => setFeedbackMessage(e.target.value)}
+                className="min-h-[150px]"
+              />
+            </div>
+
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setShowFeedbackDialog(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleSubmitFeedback}
+                disabled={isSubmitting || !feedbackMessage.trim()}
+              >
+                Send Feedback
+              </Button>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>

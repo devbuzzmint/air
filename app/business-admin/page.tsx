@@ -145,24 +145,7 @@ const recentJobs = [
 ]
 
 const quickLinks = [
-  {
-    title: "Add User",
-    href: "/business-admin/users",
-    icon: UserPlus,
-    color: "text-blue-500"
-  },
-  {
-    title: "Create Job",
-    href: "/business-admin/create",
-    icon: PlusCircle,
-    color: "text-green-500"
-  },
-  {
-    title: "View Billing",
-    href: "/business-admin/billing",
-    icon: Receipt,
-    color: "text-purple-500"
-  }
+  // Removed Add User, Create Job, View Billing
 ]
 
 // Function to get status badge styling (consistent with business user account)
@@ -246,13 +229,13 @@ export default function BusinessAdminDashboard() {
             </div>
           </Card>
 
-          {/* Users & Spend */}
+          {/* Users Card */}
           <Card className="dark-card">
             <div className="p-5">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold">Users & Spend</h3>
+                <h3 className="font-semibold">Users</h3>
                 <Link href="/business-admin/users">
-                  <Button variant="outline" size="sm">Add/Remove</Button>
+                  <Button variant="outline" size="sm">View All Users</Button>
                 </Link>
               </div>
               <div className="space-y-3 mt-4">
@@ -267,254 +250,126 @@ export default function BusinessAdminDashboard() {
                     <span className="font-medium">{user.creditsUsed} credits</span>
                   </div>
                 ))}
+                {businessUsers.length > 4 && (
+                  <p className="text-xs text-muted-foreground text-center pt-2">
+                    + {businessUsers.length - 4} more users...
+                  </p>
+                )}
               </div>
             </div>
           </Card>
 
-          {/* Job Status Counter */}
+          {/* Credit Overview */}
           <Card className="dark-card">
-            <div className="p-5">
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold">Current Job Counter</h3>
-                <Link href="/business-admin/jobs">
-                  <Button variant="outline" size="sm">View Jobs</Button>
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold">Credit Usage Overview</h3>
+                {/* View Billing Button removed */}
+              </div>
+              <div className="relative w-full bg-muted rounded-full h-4 overflow-hidden">
+                <div 
+                  className="bg-primary h-full transition-all duration-500 ease-out" 
+                  style={{ width: `${creditPercentage}%` }}
+                ></div>
+              </div>
+              <div className="flex justify-between mt-2 text-sm text-muted-foreground">
+                <span>{usedCredits} Used</span>
+                <span>{totalCredits} Total</span>
+              </div>
+              <div className="text-center mt-4">
+                <p className="text-sm">
+                  Remaining Credits: <span className="text-primary font-semibold text-lg">{remainingCredits}</span>
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Credits renew monthly
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Quick Links Section - removed */}
+
+        {/* Job Status Counter Section */}
+        <Card className="dark-card">
+          <div className="p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-semibold">Job Status Counter</h3>
+              <Link href="/business-admin/jobs?status=all">
+                <Button variant="outline" size="sm">View All Jobs</Button>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {jobStatusCounts.map((statusCount) => (
+                <Link key={statusCount.status} href={`/business-admin/jobs?status=${statusCount.status.replace(/ /g, '-')}`}>
+                  <div className="bg-muted p-4 rounded-lg text-center hover:bg-muted/80 transition-colors">
+                    <div className="text-3xl font-bold text-primary">
+                      {statusCount.count}
+                    </div>
+                    <div className={`text-xs font-medium mt-1 ${getStatusStyle(statusCount.status)} px-2 py-0.5 rounded-full inline-block`}>
+                      {statusCount.status}
+                    </div>
+                  </div>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </Card>
+
+        {/* Recent Jobs Section */}
+        <Card className="dark-card">
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Recent Jobs</h2>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Filter by status:</span>
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-[180px] bg-muted">
+                    <SelectValue placeholder="All Statuses" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="Draft">Draft</SelectItem>
+                    <SelectItem value="Submitted to Network">Submitted to Network</SelectItem>
+                    <SelectItem value="With Editor">With Editor</SelectItem>
+                    <SelectItem value="Ready for Review">Ready for Review</SelectItem>
+                    <SelectItem value="Completed">Completed</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="space-y-3 mt-4">
-                {jobStatusCounts.map((status, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center font-bold ${getStatusStyle(status.status)}`}>
-                      {status.count}
+            </div>
+            <div className="space-y-4">
+              <div className="grid grid-cols-5 text-sm text-muted-foreground pb-2 font-medium">
+                <div>Job Title</div>
+                <div>Submitted By</div>
+                <div>Type</div>
+                <div>Status</div>
+                <div className="text-right">Credits</div>
+              </div>
+              {filteredJobs.length > 0 ? (
+                filteredJobs.map((job) => (
+                  <div key={job.id} className="grid grid-cols-5 text-sm py-3 border-t border-border items-center">
+                    <div className="font-medium text-white">{job.title}</div>
+                    <div>{job.user}</div>
+                    <div>{job.type}</div>
+                    <div>
+                      <Badge className={getStatusStyle(job.status)}>{job.status}</Badge>
                     </div>
-                    <Link href={`/business-admin/jobs?status=${status.status}`} className="text-primary underline">
-                      {status.status}
-                    </Link>
+                    <div className="text-right font-medium text-primary">{job.credits}</div>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p className="text-center text-muted-foreground py-4">No jobs match the current filter.</p>
+              )}
             </div>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="dark-card">
-            <div className="p-5">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold">Total Users</h3>
-                <Users className="h-5 w-5 text-primary" />
-              </div>
-              <p className="text-3xl font-bold mt-3">{businessUsers.length}</p>
-              <div className="flex items-center gap-2 mt-2 text-sm">
-                <ArrowUpRight className="h-4 w-4 text-green-500" />
-                <span className="text-green-500">All Active</span>
-                <span className="text-muted-foreground">users this month</span>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="dark-card">
-            <div className="p-5">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold">Active Jobs</h3>
-                <FileText className="h-5 w-5 text-primary" />
-              </div>
-              <p className="text-3xl font-bold mt-3">{activeJobs}</p>
-              <div className="flex items-center gap-2 mt-2 text-sm">
-                <ArrowUpRight className="h-4 w-4 text-green-500" />
-                <span className="text-green-500">{recentJobs.filter(job => job.status === "In Progress").length} jobs</span>
-                <span className="text-muted-foreground">in progress</span>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="dark-card">
-            <div className="p-5">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold">Credit Balance</h3>
-                <CreditCard className="h-5 w-5 text-primary" />
-              </div>
-              <p className="text-3xl font-bold mt-3">{remainingCredits}</p>
-              <div className="mt-2">
-                <div className="flex items-center justify-between mb-1 text-sm">
-                  <span>Used: {usedCredits}</span>
-                  <span>Total: {totalCredits}</span>
-                </div>
-                <Progress value={creditPercentage} className="h-2" />
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {quickLinks.map((link, index) => (
-            <Link href={link.href} key={index}>
-              <Card className="dark-card h-full hover:border-primary/50 transition-colors cursor-pointer">
-                <div className="p-5 flex items-center gap-4">
-                  <div className={`h-12 w-12 rounded-full bg-card flex items-center justify-center ${link.color}`}>
-                    <link.icon className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{link.title}</h3>
-                    <p className="text-sm text-muted-foreground">Quick access</p>
-                  </div>
-                </div>
-              </Card>
+            <Link href="/business-admin/jobs">
+              <Button variant="link" className="text-primary mt-4">View All Jobs</Button>
             </Link>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <Card className="dark-card">
-              <div className="p-5">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Recent Fintech Jobs</h2>
-                  <div className="flex items-center gap-4">
-                    <Select value={statusFilter} onValueChange={setStatusFilter}>
-                      <SelectTrigger className="w-[180px] bg-muted">
-                        <SelectValue placeholder="All Types" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Types</SelectItem>
-                        <SelectItem value="Draft">Draft</SelectItem>
-                        <SelectItem value="Submitted to Network">Submitted to Network</SelectItem>
-                        <SelectItem value="With Editor">With Editor</SelectItem>
-                        <SelectItem value="Ready for Review">Ready for Review</SelectItem>
-                        <SelectItem value="In Progress">In Progress</SelectItem>
-                        <SelectItem value="Completed">Completed</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Link href="/business-admin/jobs">
-                      <Button variant="outline" size="sm">View All</Button>
-                    </Link>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-5 text-sm text-muted-foreground pb-2">
-                    <div>Title</div>
-                    <div>User</div>
-                    <div>Type</div>
-                    <div>Status</div>
-                    <div>Credits</div>
-                  </div>
-                  {filteredJobs.map((job) => (
-                    <div key={job.id} className="grid grid-cols-5 text-sm py-2 border-t border-border">
-                      <div>{job.title}</div>
-                      <div>{job.user}</div>
-                      <div>{job.type}</div>
-                      <div>
-                        <Badge className={getStatusStyle(job.status)}>
-                          {job.status}
-                        </Badge>
-                      </div>
-                      <div>{job.credits} credits</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            <Card className="dark-card">
-              <div className="p-5">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Fintech Team Members</h2>
-                  <Link href="/business-admin/users">
-                    <Button variant="outline" size="sm">Manage Team</Button>
-                  </Link>
-                </div>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-4 text-sm text-muted-foreground pb-2">
-                    <div>Name</div>
-                    <div>Role</div>
-                    <div>Active Jobs</div>
-                    <div>Credits Used</div>
-                  </div>
-                  {businessUsers.map((user) => (
-                    <div key={user.id} className="grid grid-cols-4 text-sm py-2 border-t border-border">
-                      <div>{user.name}</div>
-                      <div>{user.role}</div>
-                      <div>{user.activeJobs}</div>
-                      <div>{user.creditsUsed} credits</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Card>
           </div>
+        </Card>
 
-          <div className="space-y-6">
-            <Card className="dark-card">
-              <div className="p-5">
-                <h2 className="text-xl font-semibold mb-3">Content Stats</h2>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Technical Documentation</span>
-                      <span className="font-medium">30%</span>
-                    </div>
-                    <Progress value={30} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Marketing Content</span>
-                      <span className="font-medium">25%</span>
-                    </div>
-                    <Progress value={25} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Financial Reports</span>
-                      <span className="font-medium">20%</span>
-                    </div>
-                    <Progress value={20} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Social Media</span>
-                      <span className="font-medium">15%</span>
-                    </div>
-                    <Progress value={15} className="h-2" />
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Other</span>
-                      <span className="font-medium">10%</span>
-                    </div>
-                    <Progress value={10} className="h-2" />
-                  </div>
-                </div>
-              </div>
-            </Card>
+        {/* Fintech Team Members Section - removed */}
 
-            <Card className="dark-card">
-              <div className="p-5">
-                <h2 className="text-xl font-semibold mb-3">Activity</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                    <p className="text-sm">New job created by Sarah</p>
-                    <span className="text-xs text-muted-foreground ml-auto">2h ago</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 rounded-full bg-blue-500"></div>
-                    <p className="text-sm">API docs completed by James</p>
-                    <span className="text-xs text-muted-foreground ml-auto">6h ago</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
-                    <p className="text-sm">Credit purchase approved</p>
-                    <span className="text-xs text-muted-foreground ml-auto">1d ago</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-2 rounded-full bg-purple-500"></div>
-                    <p className="text-sm">New user added to the team</p>
-                    <span className="text-xs text-muted-foreground ml-auto">2d ago</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
       </div>
     </div>
   )
