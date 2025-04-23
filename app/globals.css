@@ -63,12 +63,12 @@
   }
 }
 
-/* Editor background with wave pattern */
-[class*='editor'] {
+/* Editor background with wave pattern - only for specific editor routes */
+body:has(div[data-pathname^='/editor/']) {
   position: relative;
 }
 
-[class*='editor']::before {
+body:has(div[data-pathname^='/editor/'])::before {
   content: '';
   position: fixed;
   top: 0;
@@ -83,7 +83,7 @@
   z-index: 0;
 }
 
-[class*='editor'] > * {
+body:has(div[data-pathname^='/editor/']) > * {
   position: relative;
   z-index: 1;
 }
@@ -91,6 +91,11 @@
 @layer components {
   .gradient-bg {
     @apply bg-[#000A26];
+  }
+
+  /* Remove wave pattern from business page specifically */
+  .gradient-bg::before {
+    display: none;
   }
   
   .dark-card {
