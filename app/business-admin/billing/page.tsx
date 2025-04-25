@@ -14,36 +14,47 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 const MOCK_INVOICES = [
   {
     id: "INV-001",
-    date: new Date(2023, 4, 15),
-    amount: 950.00,
+    date: new Date(2023, 1, 15),
+    amount: 5000.00,
     status: "Paid",
     items: [
-      { description: "API Credits (500,000)", amount: 570.00 },
-      { description: "Premium Support", amount: 230.00 },
-      { description: "Custom Templates (5)", amount: 150.00 }
+      { description: "API Credits (600,000)", amount: 3000.00 },
+      { description: "Premium Support", amount: 1000.00 },
+      { description: "Custom Templates (2)", amount: 1000.00 }
     ]
   },
   {
     id: "INV-002",
     date: new Date(2023, 3, 15),
-    amount: 720.00,
+    amount: 10000.00,
     status: "Paid",
     items: [
-      { description: "API Credits (300,000)", amount: 340.00 },
-      { description: "Premium Support", amount: 230.00 },
-      { description: "Custom Templates (2)", amount: 150.00 }
+      { description: "API Credits (300,000)", amount: 6000.00 },
+      { description: "Premium Support", amount: 2000.00 },
+      { description: "Custom Templates (2)", amount: 2000.00 }
     ]
   },
   {
     id: "INV-003",
     date: new Date(2023, 2, 15),
-    amount: 1140.00,
+    amount: 5000.00,
     status: "Paid",
     items: [
-      { description: "API Credits (800,000)", amount: 910.00 },
-      { description: "Premium Support", amount: 230.00 }
+      { description: "API Credits (800,000)", amount: 3000.00 },
+      { description: "Premium Support", amount: 2000.00 }
     ]
   },
+  {
+    id: "INV-004",
+    date: new Date(2023, 4, 15),
+    amount: 5000.00,
+    status: "Pending",
+    items: [
+      { description: "API Credits (600,000)", amount: 3000.00 },
+      { description: "Premium Support", amount: 1000.00 },
+      { description: "Custom Templates (2)", amount: 1000.00 }
+    ]
+  }
 ]
 
 // Mock data for usage

@@ -38,6 +38,46 @@ const contentTypes = [
 
 const initialJobs = [
   {
+    id: "6",
+    title: "Veriff Business Fraud Article",
+    client: "Veriff",
+    clientLogo: "/veriff-logo.png",
+    description: "Essential steps for financial services SMBs to protect against business fraud",
+    deadline: "2024-03-30",
+    type: "Blog Post",
+    payment: 27.60,
+    prompt: "Create an informative article about business fraud protection for financial services SMBs",
+    generatedContent: `# Business Fraud Protection: 3 Essential Steps Every Financial Services SMB Must Take Now
+
+By Chris Hooper, Brand Director, Veriff
+
+A few weeks ago, I spoke with a small business owner who runs a boutique financial services firm in Chicago. He was visibly shaken. Overnight, a fraudster had accessed his client portal and impersonated a customer, and initiated a bogus transaction. "We thought we were covered," he told me. "We had two-factor authentication and encrypted data. But it wasn't enough."
+
+Stories like his are becoming all too common. According to the FBI's Internet Crime Report, U.S. businesses lost over $10 billion to cybercrime in 2022, with small and midsize businesses (SMBs) being particularly vulnerable. And the financial services space? A prime target.
+
+This article is a wake-up call for SMBs in financial services. Business fraud protection isn't just a nice-to-have; it's a must-have. Here are three key steps every SMB should take to reduce their risk and reclaim control.
+
+1. Know Who You're Dealing With: Upgrade Your Identity Verification
+
+"At Veriff, we believe knowing your customer isn't just about compliance—it's your first line of defense against fraud," says Chris Hooper, Brand Director at Veriff.
+
+For too many SMBs, identity verification is a static process done at onboarding. But today's fraudsters are sophisticated. They use deepfakes, stolen credentials, and synthetic identities to sneak past legacy systems. If your ID checks are outdated, they're not protecting you.
+
+Modern business fraud protection starts with dynamic, AI-powered identity verification. Look for solutions that can:
+
+- Detect deepfake videos and manipulated images
+- Verify documents in real time
+- Match faces to ID with biometric precision
+
+This isn't about slowing down your onboarding process—it's about building trust at speed.
+
+2. Think Like a Fraudster: Run a Digital Risk Audit
+
+Online fraud doesn't happen by accident. It happens when we leave gaps in our digital armour. One of the smartest things a business leader can do is take a step back and assess their vulnerabilities.
+
+Start by asking:`
+  },
+  {
     id: "1",
     title: "Technical Documentation Update",
     client: "TechCorp Solutions",

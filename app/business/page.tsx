@@ -7,6 +7,13 @@ import { Progress } from "@/components/ui/progress"
 
 const jobs = [
   {
+    clientName: "Veriff",
+    workType: "Blog Post",
+    status: "Submitted to Network",
+    deadline: "30/03/2024",
+    credits: 138
+  },
+  {
     clientName: "London Writings Club",
     workType: "Newsletter",
     status: "Ready for Review",

@@ -28,7 +28,7 @@ import { differenceInHours, parseISO } from "date-fns"
 const contentTypes = [
   "Blog Post",
   "Newsletter",
-  "Product Description",
+  "Video Script",
   "White Paper",
   "Case Study",
   "Social Media Post",
@@ -41,54 +41,32 @@ const contentTypes = [
 const initialJobs = [
   {
     id: "1",
-    title: "Technical Documentation Update",
-    client: "TechCorp Solutions",
-    clientLogo: "/fintech-logo.png",
-    description: "Update existing technical documentation to reflect new features and improvements",
-    deadline: "2024-03-01",
-    type: "Technical Documentation",
-    payment: 46.00,
-    status: "To do",
-    prompt: `Create comprehensive technical documentation for our updated API endpoints. Include:
-- Authentication methods
-- Endpoint specifications
-- Request/response examples
-- Error handling
-- Best practices`,
-    generatedContent: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.`
+    title: "Video Script Series",
+    client: "HSBC",
+    clientLogo: "/hsbc-logo.png",
+    description: "Create a series of video scripts about emerging tech trends",
+    deadline: "2024-03-10",
+    type: "Video Script",
+    payment: 27.60,
+    status: "With client",
+    prompt: "Write a series of 3 video scripts covering AI, blockchain, and IoT trends...",
+    generatedContent: "Draft content for video series..."
   },
   {
     id: "2",
-    title: "Blog Post Series",
-    client: "HSBC",
-    clientLogo: "/hsbc-logo.png",
-    description: "Create a series of blog posts about emerging tech trends",
-    deadline: "2024-03-10",
-    type: "Blog Post",
-    payment: 27.60,
-    status: "With client",
-    prompt: "Write a series of 3 blog posts covering AI, blockchain, and IoT trends...",
-    generatedContent: "Draft content for blog series..."
+    title: "Social Media Campaign",
+    client: "SAP",
+    clientLogo: "/sap-logo.png",
+    description: "Create engaging social media posts for product launch",
+    deadline: "2024-03-01",
+    type: "Social Post",
+    payment: 18.40,
+    status: "To do",
+    prompt: "Create a series of social media posts highlighting key features...",
+    generatedContent: "Social media post drafts..."
   },
   {
     id: "3",
-    title: "Product Description Updates",
-    client: "SAP",
-    clientLogo: "/sap-logo.png",
-    description: "Optimize product descriptions for better conversion",
-    deadline: "2024-03-01",
-    type: "Product Description",
-    payment: 18.40,
-    status: "Ready for Review",
-    prompt: "Update product descriptions to highlight key features and benefits...",
-    generatedContent: "Updated product descriptions..."
-  },
-  {
-    id: "4",
     title: "Technical White Paper",
     client: "Toshiba",
     clientLogo: "/toshiba-logo.png",
@@ -101,7 +79,7 @@ At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praese
     generatedContent: "White paper draft content..."
   },
   {
-    id: "5",
+    id: "4",
     title: "Marketing Campaign Content",
     client: "Nike",
     clientLogo: "/nike-logo.png",
@@ -111,11 +89,7 @@ At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praese
     payment: 92.00,
     status: "To do",
     prompt: "Write compelling marketing copy for the new product launch...",
-    generatedContent: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-
-At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.`
+    generatedContent: "Marketing content drafts..."
   }
 ]
 
@@ -145,6 +119,20 @@ export default function EditorJobsPage() {
     const matchesType = typeFilter === "all" || job.type === typeFilter
     
     return matchesSearch && matchesStatus && matchesType
+  }).sort((a, b) => {
+    // Define the priority order for statuses
+    const statusPriority: Record<string, number> = {
+      "To do": 1,
+      "With client": 2,
+      "Completed": 3
+    }
+    
+    // First sort by status priority
+    const statusDiff = statusPriority[a.status] - statusPriority[b.status]
+    if (statusDiff !== 0) return statusDiff
+    
+    // If status is the same, sort by deadline (earlier first)
+    return new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
   })
 
   const getStatusColor = (status: string) => {
@@ -153,8 +141,6 @@ export default function EditorJobsPage() {
         return "bg-yellow-500/20 text-yellow-500"
       case "With client":
         return "bg-blue-500/20 text-blue-500"
-      case "Ready for Review":
-        return "bg-yellow-500/20 text-yellow-500"
       case "Completed":
         return "bg-green-500/20 text-green-500"
       default:
@@ -262,7 +248,6 @@ export default function EditorJobsPage() {
                     <SelectItem value="all">All Statuses</SelectItem>
                     <SelectItem value="To do">To do</SelectItem>
                     <SelectItem value="With client">With client</SelectItem>
-                    <SelectItem value="Ready for Review">Ready for Review</SelectItem>
                     <SelectItem value="Completed">Completed</SelectItem>
                   </SelectContent>
                 </Select>

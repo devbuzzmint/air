@@ -190,7 +190,7 @@ export default function BusinessAdminDashboard() {
       <div className="max-w-[1400px] mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-4xl font-bold">Fintech Solutions</h1>
+            <h1 className="text-4xl font-bold">Hello, Sarah</h1>
             <p className="text-muted-foreground mt-2">
               Business Admin Dashboard
             </p>
@@ -234,7 +234,7 @@ export default function BusinessAdminDashboard() {
               <div className="flex justify-between items-center mb-3">
                 <h3 className="font-semibold">Users</h3>
                 <Link href="/business-admin/users">
-                  <Button variant="outline" size="sm">View All Users</Button>
+                  <Button variant="outline" size="sm">View/Manage Users</Button>
                 </Link>
               </div>
               <div className="space-y-3 mt-4">
