@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useRouter } from "next/navigation"
 
 // Mock data for job templates
 const jobTemplates = [
@@ -173,11 +174,27 @@ const getStatusStyle = (status: string) => {
   }
 }
 
+// Job type data for the donut chart
+const jobTypeData = [
+  { label: "Newsletter", value: 26, color: "#A9FD2D" },
+  { label: "Article", value: 5, color: "#00E0FF" },
+  { label: "Brochure", value: 10, color: "#FFB800" },
+  { label: "Social Post", value: 5, color: "#FF5C5C" },
+]
+const totalJobs = 46;
+const otherValue = totalJobs - jobTypeData.reduce((sum, jt) => sum + jt.value, 0);
+const chartData = otherValue > 0
+  ? [...jobTypeData, { label: "Other", value: otherValue, color: "#8884d8" }]
+  : jobTypeData;
+const circumference = 2 * Math.PI * 25;
+let offset = 0;
+
 export default function BusinessAdminDashboard() {
   const totalCredits = 2500
   const remainingCredits = 1930
   const creditPercentage = (remainingCredits / totalCredits) * 100
   const [statusFilter, setStatusFilter] = useState("all")
+  const router = useRouter()
 
   const activeJobs = businessUsers.reduce((total, user) => total + user.activeJobs, 0)
   
@@ -196,34 +213,57 @@ export default function BusinessAdminDashboard() {
             </p>
           </div>
           <img 
-            src="/fintech-logo.png" 
-            alt="Fintech Solutions Logo" 
-            className="h-14"
+            src="/sarah-profile.png" 
+            alt="Sarah Johnson" 
+            className="h-14 rounded-full"
           />
         </div>
 
         {/* Job Counters Section (New) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Job Types Counter */}
-          <Card className="dark-card">
+          <Card className="dark-card cursor-pointer" onClick={() => router.push('/business-admin/jobs')}>
             <div className="p-5">
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold">Job Types Total Counter</h3>
-                <Link href="/business-admin/jobs">
-                  <Button variant="outline" size="sm">View Jobs</Button>
-                </Link>
-              </div>
-              <div className="space-y-3 mt-4">
-                {jobTemplates.map((template) => (
-                  <div key={template.id} className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
-                      {template.count}
-                    </div>
-                    <Link href={`/business-admin/jobs?template=${template.id}`} className="text-primary underline">
-                      {template.name}
-                    </Link>
+              <h3 className="font-semibold mb-3">Job Ratio</h3>
+              <div className="flex items-center gap-8">
+                {/* Dynamic Donut Chart SVG */}
+                <svg width="140" height="140" viewBox="0 0 56 56">
+                  <circle cx="28" cy="28" r="25" fill="none" stroke="#222A44" strokeWidth="6"/>
+                  {chartData.map((jt, i) => {
+                    const dash = (jt.value / totalJobs) * circumference;
+                    const dashArray = `${dash} ${circumference - dash}`;
+                    const el = (
+                      <circle
+                        key={jt.label}
+                        cx="28" cy="28" r="25"
+                        fill="none"
+                        stroke={jt.color}
+                        strokeWidth="6"
+                        strokeDasharray={dashArray}
+                        strokeDashoffset={offset}
+                        style={{ transition: 'stroke-dasharray 0.3s' }}
+                      />
+                    );
+                    offset -= dash;
+                    return el;
+                  })}
+                </svg>
+                {/* Legend */}
+                <div>
+                  <div className="text-lg font-bold">{totalJobs}</div>
+                  <div className="text-xs text-muted-foreground mb-2">Totals Jobs</div>
+                  <div className="flex flex-col gap-1">
+                    {chartData.map(jt => (
+                      <span key={jt.label} className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: jt.color }}></span>
+                        {jt.label} / {jt.value}
+                      </span>
+                    ))}
                   </div>
-                ))}
+                  <div className="mt-3">
+                    <span className="text-primary underline cursor-pointer" onClick={e => { e.stopPropagation(); router.push('/business-admin/jobs'); }}>More Jobs</span>
+                  </div>
+                </div>
               </div>
             </div>
           </Card>

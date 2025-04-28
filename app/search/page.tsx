@@ -39,9 +39,9 @@ const contentTypes = [
 const initialJobs = [
   {
     id: "6",
-    title: "Veriff Business Fraud Article",
-    client: "Veriff",
-    clientLogo: "/veriff-logo.png",
+    title: "Business Fraud Article",
+    client: "Fintech",
+    clientLogo: "/fintech-logo.png",
     description: "Essential steps for financial services SMBs to protect against business fraud",
     deadline: "2024-03-30",
     type: "Blog Post",
@@ -113,7 +113,7 @@ Start by asking:`
     clientLogo: "/sap-logo.png",
     description: "Optimize product descriptions for better conversion",
     deadline: "2024-03-01",
-    type: "Product Description",
+    type: "Video Script",
     payment: 18.40,
     prompt: "Update product descriptions to highlight key features and benefits...",
     generatedContent: "Updated product descriptions..."

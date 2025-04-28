@@ -41,7 +41,7 @@ const contentTypes = [
 const initialJobs = [
   {
     id: "8",
-    title: "Veriff Business Fraud Article",
+    title: "Business Fraud Article",
     description: "Essential steps for financial services SMBs to protect against business fraud",
     status: "Submitted to Network",
     deadline: "2024-03-30",

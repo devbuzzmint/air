@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress"
 const jobs = [
   {
     clientName: "Veriff",
-    workType: "Blog Post",
+    workType: "Business Fraud Article",
     status: "Submitted to Network",
     deadline: "30/03/2024",
     credits: 138
@@ -81,15 +81,13 @@ export default function BusinessDashboard() {
               <div className="p-6">
                 <h2 className="text-xl font-semibold mb-4">All Jobs</h2>
                 <div className="space-y-4">
-                  <div className="grid grid-cols-4 text-sm text-muted-foreground pb-2">
-                    <div>Client Name</div>
+                  <div className="grid grid-cols-3 text-sm text-muted-foreground pb-2">
                     <div>Work Type</div>
                     <div>Status</div>
                     <div>Deadline</div>
                   </div>
                   {sortedJobs.map((job, i) => (
-                    <div key={i} className="grid grid-cols-4 text-sm py-2 border-t border-border">
-                      <div>{job.clientName}</div>
+                    <div key={i} className="grid grid-cols-3 text-sm py-2 border-t border-border">
                       <div>{job.workType}</div>
                       <div>
                         <span className={`status-badge ${
