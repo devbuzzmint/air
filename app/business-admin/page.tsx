@@ -213,9 +213,9 @@ export default function BusinessAdminDashboard() {
             </p>
           </div>
           <img 
-            src="/sarah-profile.png" 
-            alt="Sarah Johnson" 
-            className="h-14 rounded-full"
+            src="/fintech-logo.png" 
+            alt="Fintech Solutions Logo" 
+            className="h-14"
           />
         </div>
 

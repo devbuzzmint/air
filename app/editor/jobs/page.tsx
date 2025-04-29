@@ -106,11 +106,11 @@ const initialJobs = [
 
 ---
 
-**A Real-World Wake-Up Call**
+**A few weeks ago, I spoke with a small business owner who runs a boutique financial services firm in Chicago. He was visibly shaken. Overnight, a fraudster had accessed his client portal and impersonated a customer, and initiated a bogus transaction.**
 
-A few weeks ago, I spoke with a small business owner who runs a boutique financial services firm in Chicago. He was visibly shaken. Overnight, a fraudster had accessed his client portal and impersonated a customer, and initiated a bogus transaction. "We thought we were covered," he told me. "We had two-factor authentication and encrypted data. But it wasn't enough."
+> "We thought we were covered," he told me. "We had two-factor authentication and encrypted data. But it wasn't enough."
 
-Stories like his are becoming all too common. According to the FBI's Internet Crime Report, U.S. businesses lost over $10 billion to cybercrime in 2022, with small and midsize businesses (SMBs) being particularly vulnerable. And the financial services space? A prime target.
+Stories like his are becoming all too common. According to the **FBI's Internet Crime Report**, U.S. businesses lost over $10 billion to cybercrime in 2022, with small and midsize businesses (SMBs) being particularly vulnerable. And the financial services space? A prime target.
 
 ---
 
@@ -124,7 +124,7 @@ This article is a wake-up call for SMBs in financial services. Business fraud pr
 
 For too many SMBs, identity verification is a static process done at onboarding. But today's fraudsters are sophisticated. They use deepfakes, stolen credentials, and synthetic identities to sneak past legacy systems. If your ID checks are outdated, they're not protecting you.
 
-**Modern business fraud protection starts with dynamic, AI-powered identity verification.** Look for solutions that can:
+**Modern business fraud protection starts with dynamic, AI-powered identity verification. Look for solutions that can:**
 
 - Detect deepfake videos and manipulated images
 - Verify documents in real time

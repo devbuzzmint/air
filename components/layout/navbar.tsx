@@ -38,10 +38,13 @@ export function Navbar() {
           </Button>
           <Avatar className="h-8 w-8">
             <AvatarImage 
-              src={isBusinessSection 
-                ? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop"
-                : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop"
-              } 
+              src={
+                pathname.startsWith('/business-admin')
+                  ? "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=150&h=150&auto=format&fit=crop"
+                  : isBusinessSection
+                  ? "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop"
+                  : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop"
+              }
             />
             <AvatarFallback>{isBusinessSection ? "JD" : "TJ"}</AvatarFallback>
           </Avatar>
