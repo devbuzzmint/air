@@ -259,7 +259,7 @@ export default function BusinessAdminDashboard() {
                         {jt.label} / {jt.value}
                       </span>
                     ))}
-                  </div>
+              </div>
                   <div className="mt-3">
                     <span className="text-primary underline cursor-pointer" onClick={e => { e.stopPropagation(); router.push('/business-admin/jobs'); }}>More Jobs</span>
                   </div>

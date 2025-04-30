@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Search, Send, ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react"
+import { Search, Send, ThumbsUp, ThumbsDown, MessageSquare, RefreshCw } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
 import { Textarea } from "@/components/ui/textarea"
+import confetti from 'canvas-confetti'
 
 const contentTypes = [
   "Blog Post",
@@ -60,35 +61,7 @@ const initialJobs = [
       audienceReaction: "Feel empowered to take action against fraud",
       callToAction: "Upgrade your fraud protection measures today"
     },
-    generatedContent: `# Business Fraud Protection: 3 Essential Steps Every Financial Services SMB Must Take Now
-
-By Chris Hooper, Brand Director, Veriff
-
-A few weeks ago, I spoke with a small business owner who runs a boutique financial services firm in Chicago. He was visibly shaken. Overnight, a fraudster had accessed his client portal and impersonated a customer, and initiated a bogus transaction. "We thought we were covered," he told me. "We had two-factor authentication and encrypted data. But it wasn't enough."
-
-Stories like his are becoming all too common. According to the FBI's Internet Crime Report, U.S. businesses lost over $10 billion to cybercrime in 2022, with small and midsize businesses (SMBs) being particularly vulnerable. And the financial services space? A prime target.
-
-This article is a wake-up call for SMBs in financial services. Business fraud protection isn't just a nice-to-have; it's a must-have. Here are three key steps every SMB should take to reduce their risk and reclaim control.
-
-1. Know Who You're Dealing With: Upgrade Your Identity Verification
-
-"At Veriff, we believe knowing your customer isn't just about compliance—it's your first line of defense against fraud," says Chris Hooper, Brand Director at Veriff.
-
-For too many SMBs, identity verification is a static process done at onboarding. But today's fraudsters are sophisticated. They use deepfakes, stolen credentials, and synthetic identities to sneak past legacy systems. If your ID checks are outdated, they're not protecting you.
-
-Modern business fraud protection starts with dynamic, AI-powered identity verification. Look for solutions that can:
-
-- Detect deepfake videos and manipulated images
-- Verify documents in real time
-- Match faces to ID with biometric precision
-
-This isn't about slowing down your onboarding process—it's about building trust at speed.
-
-2. Think Like a Fraudster: Run a Digital Risk Audit
-
-Online fraud doesn't happen by accident. It happens when we leave gaps in our digital armour. One of the smartest things a business leader can do is take a step back and assess their vulnerabilities.
-
-Start by asking:`
+    generatedContent: `# Business Fraud Protection: 3 Essential Steps Every Financial Services SMB Must Take Now\n\nA few weeks ago, I spoke with a small business owner who runs a boutique financial services firm in Chicago. He was visibly shaken. Overnight, a fraudster had accessed his client portal and impersonated a customer, and initiated a bogus transaction. \"We thought we were covered,\" he told me. \"We had two-factor authentication and encrypted data. But it wasn't enough.\"\n\nStories like his are becoming all too common. According to the FBI's Internet Crime Report, U.S. businesses lost over $10 billion to cybercrime in 2022, with small and midsize businesses (SMBs) being particularly vulnerable. And the financial services space? A prime target.\n\nThis article is a wake-up call for SMBs in financial services. Business fraud protection isn't just a nice-to-have; it's a must-have. Here are three key steps every SMB should take to reduce their risk and reclaim control.\n\n1. Know Who You're Dealing With: Upgrade Your Identity Verification\n\nFor too many SMBs, identity verification is a static process done at onboarding. But today's fraudsters are sophisticated. They use deepfakes, stolen credentials, and synthetic identities to sneak past legacy systems. If your ID checks are outdated, they're not protecting you.\n\nModern business fraud protection starts with dynamic, AI-powered identity verification. Look for solutions that can:\n\n- Detect deepfake videos and manipulated images\n- Verify documents in real time\n- Match faces to ID with biometric precision\n\nThis isn't about slowing down your onboarding process—it's about building trust at speed.\n\n2. Think Like a Fraudster: Run a Digital Risk Audit\n\nOnline fraud doesn't happen by accident. It happens when we leave gaps in our digital armour. One of the smartest things a business leader can do is take a step back and assess their vulnerabilities.\n\nStart by asking:`
   },
   {
     id: "1",
@@ -214,8 +187,93 @@ Download our comprehensive digital banking implementation guide to learn more ab
     deadline: "2024-03-20",
     type: "White Paper",
     credits: 690,
-    prompt: "Analyze current cryptocurrency market trends and institutional investment patterns...",
-    generatedContent: "Cryptocurrency analysis draft..."
+    generatedContent: `# The Evolution of Cryptocurrency Markets: A 2024 Analysis
+
+By Sarah Chen, Head of Digital Assets Research
+
+> "The cryptocurrency market is no longer just about retail traders - it's becoming an integral part of institutional investment strategies." - BlackRock CEO Larry Fink
+
+## Market Overview
+
+According to **recent data from CoinGecko**, the global cryptocurrency market cap reached **$2.1 trillion in January 2024**, marking a significant recovery from the previous year. This resurgence has been driven by several key factors:
+
+• Increased institutional adoption, with **over $20 billion** in Bitcoin ETF inflows
+• Growing regulatory clarity across major markets
+• Enhanced infrastructure for institutional investors
+• Rising corporate treasury investments
+
+## Key Market Developments
+
+### Institutional Adoption
+
+The landscape of cryptocurrency investment has evolved dramatically. Consider these developments:
+
+• **78% of institutional investors** now view cryptocurrencies as a legitimate asset class
+• Traditional banks have expanded their digital asset services by **156% since 2022**
+• Corporate treasury holdings of Bitcoin increased by **200% year-over-year**
+
+> "2024 marks a turning point where digital assets have become too significant for major financial institutions to ignore." - Goldman Sachs Digital Assets Report
+
+### Regulatory Progress
+
+Significant strides have been made in regulatory frameworks:
+
+• The SEC's approval of spot Bitcoin ETFs
+• EU's comprehensive MiCA regulation implementation
+• Enhanced clarity on stablecoin regulations
+• Standardized reporting requirements for crypto exchanges
+
+## Market Trends and Analysis
+
+### Current Market Dynamics
+
+The market has shown several notable trends:
+
+• **Institutional trading volumes up 245%** [Source: Coinbase Institutional](https://institutional.coinbase.com)
+• DeFi protocols reaching **$48 billion in TVL**
+• Layer 2 solutions processing **over 2 million transactions daily**
+• Stablecoin market cap exceeding **$100 billion**
+
+### Investment Flows
+
+We're seeing significant shifts in investment patterns:
+
+• ETF products attracting **$4.2 billion in Q1 2024**
+• Institutional derivatives trading volume up **167%**
+• Corporate treasury allocations increasing by **2.3x**
+
+> "The integration of digital assets into traditional finance is happening faster than anyone anticipated." - Christine Lagarde, ECB President
+
+## Future Outlook
+
+Several key trends are likely to shape the market:
+
+• Further institutional adoption through regulated products
+• Enhanced infrastructure for institutional custody
+• Continued regulatory clarity across major jurisdictions
+• Integration with traditional finance systems
+
+### Key Opportunities
+
+Investors should watch for:
+
+• Emerging regulatory frameworks in key markets
+• New institutional-grade products and services
+• Infrastructure development opportunities
+• Strategic partnership possibilities
+
+## Conclusion
+
+The cryptocurrency market has entered a new phase of maturity, characterized by:
+
+• Robust institutional participation
+• Clearer regulatory frameworks
+• Enhanced market infrastructure
+• Growing mainstream adoption
+
+[View detailed market data on CoinGecko](https://www.coingecko.com)
+[Read the full BlackRock report](https://www.blackrock.com/digital-assets)
+[Explore institutional insights](https://www.coinbase.com/institutional)`
   },
   {
     id: "5",
@@ -287,6 +345,7 @@ export default function BusinessJobsPage() {
   const [feedbackMessage, setFeedbackMessage] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
+  const [showFeedbackInput, setShowFeedbackInput] = useState(false)
 
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -296,7 +355,11 @@ export default function BusinessJobsPage() {
     
     return matchesSearch && matchesStatus && matchesType
   }).sort((a, b) => {
-    // Define the priority order for statuses
+    // Prioritize Business Fraud Article
+    if (a.title === "Business Fraud Article") return -1
+    if (b.title === "Business Fraud Article") return 1
+    
+    // Then sort by status priority
     const statusPriority: Record<string, number> = {
       "Ready for Review": 1,
       "Submitted to Network": 2,
@@ -305,7 +368,6 @@ export default function BusinessJobsPage() {
       "Completed": 5
     }
     
-    // First sort by status priority
     const statusDiff = statusPriority[a.status] - statusPriority[b.status]
     if (statusDiff !== 0) return statusDiff
     
@@ -393,6 +455,44 @@ export default function BusinessJobsPage() {
       // You could add a success toast here
     } catch (error) {
       // Handle error
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Function to trigger confetti
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    })
+  }
+
+  // Function to download content
+  const downloadContent = () => {
+    if (!selectedJob) return
+    
+    const element = document.createElement("a")
+    const file = new Blob([selectedJob.generatedContent], {type: 'text/plain'})
+    element.href = URL.createObjectURL(file)
+    element.download = `${selectedJob.title.replace(/\s+/g, '-').toLowerCase()}.txt`
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  }
+
+  const handleCompleteAndDownload = async () => {
+    setIsSubmitting(true)
+    try {
+      await handleCompleteJob()
+      downloadContent()
+      triggerConfetti()
+      setTimeout(() => {
+        setShowReviewDialog(false)
+      }, 1000)
+    } catch (error) {
+      console.error('Error completing job:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -595,9 +695,69 @@ export default function BusinessJobsPage() {
                     <h3 className="text-lg font-medium mb-2">Generated Content</h3>
                     <div className="bg-muted rounded-lg p-6">
                       <div className="prose prose-invert max-w-none">
-                        <pre className="text-sm whitespace-pre-wrap font-mono">
-                          {selectedJob.generatedContent}
-                        </pre>
+                        <div className="text-white space-y-6">
+                          {selectedJob?.generatedContent.split('\n\n').map((paragraph, index) => {
+                            // Main heading
+                            if (paragraph.startsWith('# ')) {
+                              return (
+                                <h1 key={index} className="text-2xl font-bold text-[#c1ff00] mb-6 border-b border-[#282f52] pb-4">
+                                  {paragraph.replace('# ', '')}
+                                </h1>
+                              )
+                            }
+                            // Subheading
+                            if (paragraph.startsWith('## ')) {
+                              return (
+                                <h2 key={index} className="text-xl font-semibold text-[#c1ff00] mb-4">
+                                  {paragraph.replace('## ', '')}
+                                </h2>
+                              )
+                            }
+                            // Subheading level 3
+                            if (paragraph.startsWith('### ')) {
+                              return (
+                                <h3 key={index} className="text-lg font-semibold text-[#c1ff00] mb-3">
+                                  {paragraph.replace('### ', '')}
+                                </h3>
+                              )
+                            }
+                            // Pull quotes
+                            if (paragraph.startsWith('> ')) {
+                              return (
+                                <blockquote key={index} className="border-l-4 border-[#c1ff00] pl-4 my-6 bg-[#0f1320] p-6 rounded-r">
+                                  <p className="italic text-[#c1ff00] text-lg mb-2">
+                                    {paragraph.replace('> ', '')}
+                                  </p>
+                                </blockquote>
+                              )
+                            }
+                            // Bullet points
+                            if (paragraph.startsWith('• ')) {
+                              return (
+                                <ul key={index} className="space-y-3 my-4 ml-4">
+                                  {paragraph.split('\n• ').map((item, itemIndex) => (
+                                    <li key={itemIndex} className="text-white flex items-start">
+                                      <span className="text-[#c1ff00] mr-2 text-xl">•</span>
+                                      <span className="text-gray-300" dangerouslySetInnerHTML={{ 
+                                        __html: item.replace('• ', '')
+                                          .replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-white">$1</span>')
+                                          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-[#c1ff00] hover:underline">$1</a>')
+                                      }} />
+                                    </li>
+                                  ))}
+                                </ul>
+                              )
+                            }
+                            // Regular paragraph with bold and links
+                            return (
+                              <p key={index} className="text-gray-300 leading-relaxed mb-4" dangerouslySetInnerHTML={{ 
+                                __html: paragraph
+                                  .replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-white">$1</span>')
+                                  .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-[#c1ff00] hover:underline">$1</a>')
+                              }} />
+                            )
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -625,54 +785,140 @@ export default function BusinessJobsPage() {
               </DialogDescription>
             </DialogHeader>
 
-            <div className="space-y-6 my-4">
-              <div className="bg-muted p-6 rounded-lg space-y-4">
-                <h3 className="font-medium text-lg">{selectedJob?.title}</h3>
-                <div className="prose prose-sm dark:prose-invert space-y-6">
-                  <p className="mb-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-
-                  <p className="mb-6">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                  </p>
-
-                  <p className="mb-6">
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                  </p>
+            <div className="flex flex-col h-full">
+              {/* Scrollable content area with fixed height */}
+              <div className="relative my-4">
+                <div className="bg-muted p-6 rounded-lg overflow-y-auto max-h-[60vh]">
+                  <div className="prose prose-invert max-w-none">
+                    <div className="text-white space-y-6">
+                      {selectedJob?.generatedContent.split('\n\n').map((paragraph, index) => {
+                        // Main heading
+                        if (paragraph.startsWith('# ')) {
+                          return (
+                            <h1 key={index} className="text-2xl font-bold text-[#c1ff00] mb-6 border-b border-[#282f52] pb-4">
+                              {paragraph.replace('# ', '')}
+                            </h1>
+                          )
+                        }
+                        // Subheading
+                        if (paragraph.startsWith('## ')) {
+                          return (
+                            <h2 key={index} className="text-xl font-semibold text-[#c1ff00] mb-4">
+                              {paragraph.replace('## ', '')}
+                            </h2>
+                          )
+                        }
+                        // Subheading level 3
+                        if (paragraph.startsWith('### ')) {
+                          return (
+                            <h3 key={index} className="text-lg font-semibold text-[#c1ff00] mb-3">
+                              {paragraph.replace('### ', '')}
+                            </h3>
+                          )
+                        }
+                        // Pull quotes
+                        if (paragraph.startsWith('> ')) {
+                          return (
+                            <blockquote key={index} className="border-l-4 border-[#c1ff00] pl-4 my-6 bg-[#0f1320] p-6 rounded-r">
+                              <p className="italic text-[#c1ff00] text-lg mb-2">
+                                {paragraph.replace('> ', '')}
+                              </p>
+                            </blockquote>
+                          )
+                        }
+                        // Bullet points
+                        if (paragraph.startsWith('• ')) {
+                          return (
+                            <ul key={index} className="space-y-3 my-4 ml-4">
+                              {paragraph.split('\n• ').map((item, itemIndex) => (
+                                <li key={itemIndex} className="text-white flex items-start">
+                                  <span className="text-[#c1ff00] mr-2 text-xl">•</span>
+                                  <span className="text-gray-300" dangerouslySetInnerHTML={{ 
+                                    __html: item.replace('• ', '')
+                                      .replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-white">$1</span>')
+                                      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-[#c1ff00] hover:underline">$1</a>')
+                                  }} />
+                                </li>
+                              ))}
+                            </ul>
+                          )
+                        }
+                        // Regular paragraph with bold and links
+                        return (
+                          <p key={index} className="text-gray-300 leading-relaxed mb-4" dangerouslySetInnerHTML={{ 
+                            __html: paragraph
+                              .replace(/\*\*(.*?)\*\*/g, '<span class="font-bold text-white">$1</span>')
+                              .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-[#c1ff00] hover:underline">$1</a>')
+                          }} />
+                        )
+                      })}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Feedback input area as overlay */}
+                {showFeedbackInput && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-[#0f1320] p-6 rounded-lg border border-[#282f52] shadow-xl">
+                    <div className="mb-4">
+                      <h3 className="text-lg font-semibold mb-2 text-white">Send Feedback to Account Manager</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Please provide details about why the content needs revision
+                      </p>
+                    </div>
+                    <Textarea
+                      placeholder="Enter your feedback here..."
+                      value={feedbackMessage}
+                      onChange={(e) => setFeedbackMessage(e.target.value)}
+                      className="min-h-[100px] bg-[#131729] border-[#282f52] focus:border-[#c1ff00]"
+                    />
+                  </div>
+                )}
               </div>
 
-              <div className="flex justify-center gap-4">
-                <Button
-                  variant={isApproved ? "default" : "outline"}
-                  size="lg"
-                  className={`w-32 ${isApproved ? "bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90" : ""}`}
-                  onClick={() => handleFeedback(true)}
-                >
-                  <ThumbsUp className={`mr-2 h-5 w-5 ${isApproved ? "fill-current" : ""}`} />
-                  Approve
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-32"
-                  onClick={() => handleFeedback(false)}
-                  disabled={isApproved}
-                >
-                  <ThumbsDown className="mr-2 h-5 w-5" />
-                  Reject
-                </Button>
-              </div>
+              {/* Fixed buttons at bottom */}
+              <div className="border-t border-border pt-4 mt-2 space-y-4">
+                <div className="flex justify-center gap-4">
+                  <Button
+                    variant={isApproved ? "default" : "outline"}
+                    size="lg"
+                    className={`w-32 ${isApproved ? "bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90" : ""}`}
+                    onClick={() => {
+                      setIsApproved(!isApproved)
+                      setShowFeedbackInput(false)
+                      setFeedbackMessage("")
+                    }}
+                  >
+                    <ThumbsUp className={`mr-2 h-5 w-5 ${isApproved ? "fill-current" : ""}`} />
+                    Approve
+                  </Button>
+                  <Button
+                    variant={showFeedbackInput ? "default" : "outline"}
+                    size="lg"
+                    className="w-32"
+                    onClick={() => {
+                      setShowFeedbackInput(!showFeedbackInput)
+                      setIsApproved(false)
+                    }}
+                  >
+                    <ThumbsDown className="mr-2 h-5 w-5" />
+                    Reject
+                  </Button>
+                </div>
 
-              <div className="flex justify-center">
-                <Button 
-                  className="bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90 w-48"
-                  onClick={handleCompleteJob}
-                  disabled={!isApproved || isSubmitting}
-                >
-                  Complete & Close Job
-                </Button>
+                <div className="flex justify-center">
+                  <Button 
+                    className="bg-[#ABFF2E] text-black hover:bg-[#ABFF2E]/90 w-64"
+                    onClick={handleCompleteAndDownload}
+                    disabled={(!isApproved && !feedbackMessage) || isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="mr-2 h-4 w-4" />
+                    )}
+                    Complete and Download
+                  </Button>
+                </div>
               </div>
             </div>
           </DialogContent>

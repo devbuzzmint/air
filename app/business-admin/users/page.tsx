@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog"
 import {
   Select,
@@ -19,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Label } from "@/components/ui/label"
 
 const users = [
   {
@@ -96,6 +98,13 @@ export default function UsersPage() {
   const [roleFilter, setRoleFilter] = useState("all")
   const [selectedUser, setSelectedUser] = useState<typeof users[0] | null>(null)
   const [showDetailsDialog, setShowDetailsDialog] = useState(false)
+  const [showCreateUserDialog, setShowCreateUserDialog] = useState(false)
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    role: "",
+    status: "Active"
+  })
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = 
@@ -111,15 +120,106 @@ export default function UsersPage() {
     setShowDetailsDialog(true)
   }
 
+  const handleCreateUser = () => {
+    console.log("Creating user:", newUser)
+    setShowCreateUserDialog(false)
+    setNewUser({
+      name: "",
+      email: "",
+      role: "",
+      status: "Active"
+    })
+  }
+
   return (
-    <div className="p-8 gradient-bg min-h-screen">
+    <div className="p-8 bg-[#070c1c] min-h-screen">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-4xl font-bold">User Management</h1>
-          <Button>
-            <UserPlus className="h-4 w-4 mr-2" />
-            Add User
-          </Button>
+          <div>
+            <h1 className="text-4xl font-bold text-white">Users</h1>
+            <p className="text-muted-foreground mt-2">
+              Manage your team members and their access levels
+            </p>
+          </div>
+          <Dialog open={showCreateUserDialog} onOpenChange={setShowCreateUserDialog}>
+            <DialogTrigger asChild>
+              <Button className="bg-[#c1ff00] hover:bg-[#b2ee00] text-black font-semibold">
+                Create User
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-[#1a1e37] border-[#282f52] text-white">
+              <DialogHeader>
+                <DialogTitle>Create New User</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    id="name"
+                    value={newUser.name}
+                    onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                    className="bg-[#131729] border-[#282f52] text-white"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={newUser.email}
+                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                    className="bg-[#131729] border-[#282f52] text-white"
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="role">Role</Label>
+                  <Select
+                    value={newUser.role}
+                    onValueChange={(value) => setNewUser({ ...newUser, role: value })}
+                  >
+                    <SelectTrigger className="bg-[#131729] border-[#282f52] text-white">
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1a1e37] border-[#282f52] text-white">
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="editor">Editor</SelectItem>
+                      <SelectItem value="viewer">Viewer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="status">Status</Label>
+                  <Select
+                    value={newUser.status}
+                    onValueChange={(value) => setNewUser({ ...newUser, status: value })}
+                  >
+                    <SelectTrigger className="bg-[#131729] border-[#282f52] text-white">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#1a1e37] border-[#282f52] text-white">
+                      <SelectItem value="Active">Active</SelectItem>
+                      <SelectItem value="Inactive">Inactive</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowCreateUserDialog(false)}
+                  className="border-[#282f52] text-white hover:bg-[#282f52]"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleCreateUser}
+                  className="bg-[#c1ff00] hover:bg-[#b2ee00] text-black font-semibold"
+                >
+                  Create User
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="bg-card rounded-xl shadow-sm border border-border mb-6">

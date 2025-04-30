@@ -124,7 +124,42 @@ export default function CreatePage() {
   const [activeStep, setActiveStep] = useState('details')
   const [error, setError] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
-  const [generatedContent, setGeneratedContent] = useState("")
+  const [isEditing, setIsEditing] = useState(false)
+  const [generatedContent, setGeneratedContent] = useState(`Title: Business Fraud Protection: 3 Essential Steps Every Financial Services SMB Must Take Now
+
+Meta Description: Discover how small financial services firms can protect themselves from online fraud. 's Chris Hooper shares actionable advice on business fraud protection.
+
+Business Fraud Protection: 3 Essential Steps Every Financial Services SMB Must Take Now
+
+By Chris Hooper, Brand Director,
+
+A few weeks ago, I spoke with a small business owner who runs a boutique financial services firm in Chicago. He was visibly shaken. Overnight, a fraudster had accessed his client portal, impersonated a customer, and initiated a bogus transaction. "We thought we were covered," he told me. "We had two-factor authentication and encrypted emails. But it wasn't enough."
+
+Stories like his are becoming all too common. According to the FBI's Internet Crime Report, U.S. businesses lost over $10 billion to cybercrime in 2022, with small and midsize businesses (SMBs) being particularly vulnerable. And the financial services space? A prime target.
+
+This article is a wake-up call for SMBs in financial services. Business fraud protection isn't just a nice-to-have; it's a must-have. Here are three bold, practical steps every SMB should take to reduce their risk and reclaim control.
+
+1. Know Who You're Dealing With: Upgrade Your Identity Verification
+
+"AI, we believe knowing your customer isn't just about compliance—it's your first line of defence against fraud," says Chris Hooper, Brand Director at.
+
+For too many SMBs, identity verification is a static process done at onboarding. But today's fraudsters are sophisticated. They use deepfakes, stolen credentials, and synthetic identities to sneak past legacy systems. If your ID checks are outdated, they're not protecting you.
+
+Modern business fraud protection starts with dynamic, AI-powered identity verification. Look for solutions that can:
+
+- Detect deepfake videos and manipulated images
+- Verify documents in real time
+- Match faces to ID with biometric precision
+
+This isn't about slowing down your onboarding process—it's about building trust at speed.
+
+2. Think Like a Fraudster: Run a Digital Risk Audit
+
+Online fraud doesn't happen by accident. It happens when we leave gaps in our digital armour. One of the smartest things a business leader can do is take a step back and assess their vulnerabilities.
+
+Start by asking:
+
+- Where are my biggest points of user interaction?`)
   const [editedContent, setEditedContent] = useState("")
   const [editorNotes, setEditorNotes] = useState("")
   const [showGenerateDialog, setShowGenerateDialog] = useState(false)
@@ -514,25 +549,90 @@ ${formData.callToAction}`
                     </div>
                   </div>
 
-                  <div className="border-t border-border pt-6">
-                    <h2 className="text-2xl font-semibold mb-4">Generated Content</h2>
-                    <Button 
-                      variant="outline" 
-                      className="mb-4"
-                      onClick={() => {
-                        const editor = document.querySelector('[contenteditable="true"]')
-                        if (editor) {
-                          editor.setAttribute('contenteditable', 'true')
-                          editor.focus()
-                        }
-                      }}
-                    >
-                      Edit Content
-                    </Button>
-                    <TiptapEditor 
-                      content={editedContent} 
-                      onChange={setEditedContent}
-                    />
+                  <div className="bg-[#131729] rounded-lg p-6">
+                    <div className="flex justify-between items-center mb-6">
+                      <h3 className="text-lg font-medium text-white">Generated Content</h3>
+                      <Button 
+                        variant="outline" 
+                        className="border-[#282f52] text-white hover:bg-[#282f52]"
+                        onClick={() => setIsEditing(!isEditing)}
+                      >
+                        {isEditing ? 'View Content' : 'Edit Content'}
+                      </Button>
+                    </div>
+                    {!isEditing ? (
+                      <div className="prose prose-invert max-w-none">
+                        <div className="text-white space-y-4">
+                          {generatedContent.split('\n\n').map((paragraph, index) => {
+                            // Title and Meta Description
+                            if (paragraph.startsWith('Title:')) {
+                              return null // Skip the metadata section
+                            }
+                            if (paragraph.startsWith('Meta Description:')) {
+                              return null // Skip the metadata section
+                            }
+                            // Main heading
+                            if (paragraph.startsWith('Business Fraud Protection')) {
+                              return (
+                                <h1 key={index} className="text-xl font-bold text-[#c1ff00] mb-6 border-b border-[#282f52] pb-4">
+                                  {paragraph}
+                                </h1>
+                              )
+                            }
+                            // Author byline
+                            if (paragraph.startsWith('By ')) {
+                              return (
+                                <p key={index} className="text-[#c1ff00] italic mb-6">
+                                  {paragraph}
+                                </p>
+                              )
+                            }
+                            // Quotes
+                            if (paragraph.includes('"')) {
+                              return (
+                                <blockquote key={index} className="border-l-4 border-[#c1ff00] pl-4 my-6 bg-[#0f1320] p-4 rounded-r">
+                                  <p className="italic text-[#c1ff00] text-base">
+                                    {paragraph}
+                                  </p>
+                                </blockquote>
+                              )
+                            }
+                            // Numbered sections
+                            if (paragraph.match(/^\d\./)) {
+                              return (
+                                <h2 key={index} className="text-lg font-semibold text-[#c1ff00] mt-8 mb-4">
+                                  {paragraph}
+                                </h2>
+                              )
+                            }
+                            // Bullet points
+                            if (paragraph.startsWith('- ')) {
+                              return (
+                                <ul key={index} className="space-y-2 my-4 ml-4">
+                                  {paragraph.split('\n- ').map((item, itemIndex) => (
+                                    <li key={itemIndex} className="text-white flex items-start">
+                                      <span className="text-[#c1ff00] mr-2">•</span>
+                                      <span>{item.replace('- ', '')}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )
+                            }
+                            // Regular paragraph
+                            return (
+                              <p key={index} className="text-gray-300 leading-relaxed mb-4">
+                                {paragraph}
+                              </p>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <TiptapEditor 
+                        content={editedContent} 
+                        onChange={setEditedContent}
+                      />
+                    )}
                   </div>
 
                   <div>

@@ -40,7 +40,7 @@ const contentTypes = [
 const initialJobs = [
   {
     id: "7",
-    title: "Veriff Business Fraud Article",
+    title: "Business Fraud Article",
     client: "Veriff",
     clientLogo: "/veriff-logo.png",
     description: "Essential steps for financial services SMBs to protect against business fraud",
@@ -265,19 +265,11 @@ export default function BusinessAdminJobsPage() {
                   <p className="text-muted-foreground mt-2">{job.description}</p>
                 </div>
                 <div className="text-right">
-                  <div className="mb-2 text-right">
-                    <span className="inline-flex items-center justify-center bg-[#1e2342] px-3 py-1 rounded-md">
-                      <img 
-                        src="/fintech-logo.png" 
-                        alt={job.client}
-                        className="h-5 w-auto object-contain mr-2"
-                      />
-                      <span className="text-white font-medium">Fintech</span>
-                    </span>
-                  </div>
-                  <span className="text-xl font-semibold text-[#c1ff00]">
-                    {job.credits} credits
-                  </span>
+                  <img 
+                    src="/fintech-logo.png" 
+                    alt="Fintech" 
+                    className="h-8 w-auto object-contain mb-2"
+                  />
                 </div>
               </div>
 
