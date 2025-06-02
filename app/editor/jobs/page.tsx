@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { differenceInHours, parseISO } from "date-fns"
+import { StyleGuideButton } from "@/components/ui/style-guide-button"
 
 const contentTypes = [
   "Blog Post",
@@ -388,7 +389,14 @@ export default function EditorJobsPage() {
             {selectedJob && (
               <>
                 <DialogHeader>
-                  <DialogTitle>{selectedJob.title}</DialogTitle>
+                  <DialogTitle className="text-2xl">{selectedJob.title}</DialogTitle>
+                  <DialogDescription>
+                    <div className="flex items-center gap-2 mt-2">
+                      <img src={selectedJob.clientLogo} alt={selectedJob.client} className="w-6 h-6" />
+                      <span>{selectedJob.client}</span>
+                      <Badge variant="outline" className="ml-2">{selectedJob.type}</Badge>
+                    </div>
+                  </DialogDescription>
                 </DialogHeader>
                 
                 <div className="space-y-6">
@@ -491,6 +499,57 @@ export default function EditorJobsPage() {
                     <p><span className="text-muted-foreground">Title:</span> {selectedJob.title}</p>
                     <p><span className="text-muted-foreground">Client:</span> {selectedJob.client}</p>
                     <p><span className="text-muted-foreground">Type:</span> {selectedJob.type}</p>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        // Download logic from StyleGuideButton
+                        const client = selectedJob.client || '';
+                        const doc = {
+                          content: [
+                            { text: `${client} Style Guide`, style: 'header' },
+                            { text: '\n' },
+                            { text: 'Brand Guidelines', style: 'subheader' },
+                            { text: '\n' },
+                            { text: 'Primary Colors', style: 'subheader' },
+                            { text: '• Primary: #00FF00 (AI_Refine Green)\n• Secondary: #000000\n• Accent: #FFFFFF' },
+                            { text: '\n' },
+                            { text: 'Typography', style: 'subheader' },
+                            { text: '• Headings: Inter, Bold\n• Body: Inter, Regular\n• Accent: Inter, Medium' },
+                            { text: '\n' },
+                            { text: 'Voice & Tone', style: 'subheader' },
+                            { text: '• Professional yet approachable\n• Clear and concise\n• Solution-oriented' },
+                            { text: '\n' },
+                            { text: 'Content Guidelines', style: 'subheader' },
+                            { text: '• Use active voice\n• Keep paragraphs short\n• Include relevant examples\n• Use bullet points for lists' }
+                          ],
+                          styles: {
+                            header: {
+                              fontSize: 24,
+                              bold: true,
+                              margin: [0, 0, 0, 10]
+                            },
+                            subheader: {
+                              fontSize: 16,
+                              bold: true,
+                              margin: [0, 10, 0, 5]
+                            }
+                          }
+                        };
+                        const blob = new Blob([JSON.stringify(doc)], { type: 'application/pdf' });
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `${client.toLowerCase()}-style-guide.pdf`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+                      }}
+                      className="text-[#ABFF2E] font-medium underline hover:opacity-80 mt-2 block"
+                    >
+                      Download Style Guide
+                    </a>
                   </div>
                 </div>
               )}
